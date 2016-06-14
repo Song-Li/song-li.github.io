@@ -10,8 +10,8 @@ var map;
 var city;
 var lati,longi;
 var region, country;
-var mlati = 39.9042;
-var mlongi = 116.4074;
+var mlati = 40.5902;
+var mlongi = -75.3547;
 var mcity = "Bethlehem PA USA"
 function init() {
 $.ajax({ url: 'http://freegeoip.net/json/', success: function(data) { 
@@ -28,7 +28,7 @@ $.ajax({ url: 'http://freegeoip.net/json/', success: function(data) {
 function getMap(lati, longi, city){
 console.log(lati, longi);
 map = WE.map('map', {
-center: [lati, longi],
+center: [mlati, mlongi],
 zoom: 4,
 dragging: true,
 scrollWheelZoom: true,
