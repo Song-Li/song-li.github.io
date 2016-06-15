@@ -82,21 +82,24 @@ function getMap(lati, longi, city){
     mmarker.addTo(map);
 
     var ymarker = WE.marker([lati, longi]);
-    ymarker.bindPopup("<b>You're here<b><span style='font-size:10px;color:#999'></br>" + city + ' ' + region + ' ' + country + "</span>", {maxWidth: 150, closeButton: true}).openPopup();
+    ymarker.bindPopup("<b>You're here<b><span style='font-size:10px;color:#999'></br>" + city + '</br>' + region + '</br>' + country + "</span>", {maxWidth: 100, closeButton: true}).openPopup();
     ymarker.addTo(map);
 
     var marker = WE.marker([90, 90]);
     var distance = getDistance(lati, longi, mlati, mlongi);
-    marker.bindPopup("<b>You're " + distance + "km away from me<b><span style='font-size:10px;color:#999'></br>" + getAns(distance) + "</span>", {maxWidth: 200, closeButton: true}).openPopup();
+    marker.bindPopup("<b>You're " + distance + "km away from me<b><span style='font-size:10px;color:#999'></br>" + getAns(distance) + "</span>", {maxWidth: 200, closeButton: false}).openPopup();
 
     marker.addTo(map);
+
+    var c = map.getPosition();
+    map.setCenter([c[0], c[1] + 50]);
 
     var before = null;
     requestAnimationFrame(function animate(now) {
         var c = map.getPosition();
         var elapsed = before? now - before: 0;
         before = now;
-        map.setCenter([c[0], c[1] + 0.4*(elapsed/30)]);
+        map.setCenter([c[0], c[1] + 0.1*(elapsed/30)]);
         requestAnimationFrame(animate);
     });
 
