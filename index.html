@@ -3,13 +3,24 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <link type="text/css" rel="stylesheet" href="./js/main.css">
       <link type="text/css" rel="stylesheet" href="./js/animate.min.css">
+      <link type="text/css" rel="stylesheet" href="./js/star.css">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Song Li</title>
     </head>
-    <body>
-        <div id="map">
+    <body onload=init();>
+        <div id="space">
+            <div class="stars"></div>
+            <div class="stars"></div>
+            <div class="stars"></div>
+            <div class="stars"></div>
+            <div class="stars"></div>
+        </div>
+    <div id="map">
+    <div id="blur"></div>
+    </div>
+    <div id="addmarkers"></div>
       <div class="container">
-        <div id="main-me">
+        <div id="main-me" class="bar">
           <div id="main-img" class="animated zoomIn">
             <img src="./js/avatar.jpg" class="circle responsive-img">
           </div>
@@ -36,5 +47,7 @@
       <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="./js/main.js"></script>
       <script type="text/javascript" src="./js/earth.js"></script>
+      <script type="text/javascript" src="./js/api.js"></script>
+
     
   </body></html>
