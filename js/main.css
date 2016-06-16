@@ -56,6 +56,13 @@ body {
 	display: inline;
 }
 
+#main-text h2 {
+	color: #BFBFBF;
+}
+#main-text p {
+	color: #555555;
+}
+
 #main-link .link:after {
 	margin-right: 2px;
 	margin-left: 2px;
@@ -68,7 +75,7 @@ body {
 }
 
 #main-link a:hover {
-	color: #000000;
+	color: #333333;
 }
 #main-text div {
 	padding-bottom: 0.8em;
