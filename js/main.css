@@ -1,0 +1,79 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+.bar {
+  padding: -10px -10px -10px -10px;
+  background: rgba(230,240,255,0.4);
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+}
+
+.bar:before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  height: 100%;
+  top: 0; right: 0; left: 0;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+}
+
+body {
+	font-family: "Roboto", sans-serif;
+	font-size: 15px;
+}
+
+#main-me {
+	position: absolute;
+	text-align: center;
+	top:20%;
+	left:50%;
+    margin-left: -149px;
+}
+
+#main-me p {
+	line-height: 0.4em;
+}
+
+#main-img {
+	padding-top: 0.8em;
+	padding-bottom: 0.2em;
+	padding-left: 5.0em;
+	padding-right: 5.0em;
+}
+
+#main-img img {
+	width: 150px;
+}
+
+#main-link div {
+	display: inline;
+}
+
+#main-link .link:after {
+	margin-right: 2px;
+	margin-left: 2px;
+	content: '/';
+}
+
+#main-link a {
+	color: #BFBFBF;
+	text-decoration: none;
+}
+
+#main-link a:hover {
+	color: #000000;
+}
+#main-text div {
+	padding-bottom: 0.8em;
+}
+
+.circle {
+	border-radius: 50%;
+}
