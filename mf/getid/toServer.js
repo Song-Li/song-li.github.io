@@ -7,7 +7,6 @@ function addUID(uid){
 function generateUID(){
     postData = 'GetUID';
 
-    /*
     var f = document.createElement("form");
     f.setAttribute('method',"post");
     f.setAttribute('action',"http://" + ip_address + "/getid.py");
@@ -20,7 +19,6 @@ function generateUID(){
 
     f.submit();
     return ;
-*/
 
     $.ajax({
         url:"http://" + ip_address + "/getid.py",
