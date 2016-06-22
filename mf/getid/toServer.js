@@ -1,5 +1,10 @@
 var ip_address = "184.73.16.65"
 
+function addUID(uid){
+    $(uid).appendTo($('#uid'));
+    
+}
+
 function generateUID(){
     postData = 'GetUID';
 
@@ -23,9 +28,9 @@ function generateUID(){
         dataType:"text",
         type: 'POST',
         data: postData,
-        success:function(data) {
-            console.log(data);
-            $(data).appendTo($('#uid'));
+        success:function(uid) {
+            addUID(uid);
+            console.log(uid);
         }
     });
 }
