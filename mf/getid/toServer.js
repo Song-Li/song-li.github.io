@@ -25,7 +25,7 @@ function generateUID(){
         data: postData,
         success:function(data) {
             console.log(data);
-            $('<div>Your user ID is ' + data + '</div>').appendTo($('#body'));
+            $(data).appendTo($('#uid'));
         }
     });
 }
