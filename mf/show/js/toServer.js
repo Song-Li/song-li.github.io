@@ -114,7 +114,7 @@ function toServer(WebGL, inc, gpu, hash, id, dataurl){ //send messages to server
         window.location.href = error_page;
     }
 
-    var postData = {WebGL: WebGL, inc: inc, gpu: gpu, hash: hash, uid:uid, pixels: pixels};
+    var postData = {WebGL: WebGL, inc: inc, gpu: gpu, hash: hash, user_id:uid, pixels: pixels};
 
 
     /*
