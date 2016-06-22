@@ -102,7 +102,6 @@ function toServer(WebGL, inc, gpu, hash, id, dataurl){ //send messages to server
         if (i != 0) pixels += ' ';
         pixels += stringify(urls[i]);
     }
-    var postData = {WebGL: WebGL, inc: inc, gpu: gpu, hash: hash, uid:uid pixels: pixels};
     var url = document.URL;
     var hasCommand = url.indexOf('?') >= 0;
 
