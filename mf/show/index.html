@@ -4,42 +4,48 @@
 </head>
 <link rel="stylesheet" href="css/style.css">
 <style>
-canvas {
+#test_canvas canvas{
     display: None;
 }
 </style>
+
 <body onload="drawCube();drawLine();drawTexture();drawSimpleLight();drawMoreLight();drawTransparent();">
 <progress max="100"></progress>
-<canvas id="line" width="256" height="256">
-    Your browser does not support HTML5
-</canvas>
-<canvas id="cube" width="256" height="256">
-    Your browser does not support HTML5
-</canvas>
-<canvas id="texture_simple" width="256" height="256">
-    Your browser does not support HTML5
-</canvas>
-<canvas id="texture_susan" width="256" height="256">
-    Your browser does not support HTML5
-</canvas>
-<canvas id="simple_light_simple" width="256" height="256">
-    Your browser does not support HTML5
-</canvas>
-<canvas id="simple_light_susan" width="256" height="256">
-    Your browser does not support HTML5
-</canvas>
-<canvas id="more_light_simple" width="256" height="256">
-    Your browser does not support HTML5
-</canvas>
-<canvas id="more_light_susan" width="256" height="256">
-    Your browser does not support HTML5
-</canvas>
-<canvas id="transparent_simple" width="256" height="256">
-    Your browser does not support HTML5
-</canvas>
-<canvas id="transparent_susan" width="256" height="256">
-    Your browser does not support HTML5
-</canvas>
+
+<div id = "instruction"> Now Next </div>
+
+<div id = "test_canvas">
+    <canvas id="line" width="256" height="256">
+        Your browser does not support HTML5
+    </canvas>
+    <canvas id="cube" width="256" height="256">
+        Your browser does not support HTML5
+    </canvas>
+    <canvas id="texture_simple" width="256" height="256">
+        Your browser does not support HTML5
+    </canvas>
+    <canvas id="texture_susan" width="256" height="256">
+        Your browser does not support HTML5
+    </canvas>
+    <canvas id="simple_light_simple" width="256" height="256">
+        Your browser does not support HTML5
+    </canvas>
+    <canvas id="simple_light_susan" width="256" height="256">
+        Your browser does not support HTML5
+    </canvas>
+    <canvas id="more_light_simple" width="256" height="256">
+        Your browser does not support HTML5
+    </canvas>
+    <canvas id="more_light_susan" width="256" height="256">
+        Your browser does not support HTML5
+    </canvas>
+    <canvas id="transparent_simple" width="256" height="256">
+        Your browser does not support HTML5
+    </canvas>
+    <canvas id="transparent_susan" width="256" height="256">
+        Your browser does not support HTML5
+    </canvas>
+</div>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js"></script>
 <script src="./three/three.min.js"></script>
