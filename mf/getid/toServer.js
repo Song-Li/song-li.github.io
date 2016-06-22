@@ -1,8 +1,7 @@
 var ip_address = "184.73.16.65"
 
 function addUID(uid){
-    $(uid).appendTo($('#uid'));
-    
+    $("uid").append(uid);
 }
 
 function generateUID(){
