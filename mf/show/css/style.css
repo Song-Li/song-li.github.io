@@ -74,7 +74,10 @@ progress.hidden {
     color: hsla(0,0%,100%,.6);
 }
 
-#instrution img {
+#instruction img {
+    height: 70;
+    width: 70;
+    padding-top: 10px;
     border-radius: 50%;
 }
 
