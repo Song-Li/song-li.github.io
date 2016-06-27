@@ -15,5 +15,5 @@ function getEncrypt(){
     var encrypted = CryptoJS.AES.encrypt(code, key);
     ////4d657373616765
     //
-    document.getElementById("Result").innerHTML = encrypt;
+    document.getElementById("Result").innerHTML = encrypted;
 }
