@@ -14,13 +14,21 @@
         <div id="main-img" class="animated zoomIn">
             <img src="./js/avatar.jpg" class="circle responsive-img">
         </div>
-        <div id="main-text">
-            <h2>AES decrption</h2>
+        <div>
+            <h2>AES decryption</h2>
             <input name="Code" type="text" maxlength="512" id="code"/>
-            <input name="Key" type="text" maxlength="512" id="key"/>
+            <input name="Key_d" type="text" maxlength="512" id="key_d"/>
             <div>Message:</div>
             <div id="Message"></div>
             <button onclick="getDecrypt()"> Decrypt </button>
+        </div>
+        <div>
+            <h2>AES encryption</h2>
+            <input name="Encryption" type="text" maxlength="512" id="encrption"/>
+            <input name="Key_e" type="text" maxlength="512" id="key_e"/>
+            <div>Result:</div>
+            <div id="Result"></div>
+            <button onclick="getEncrypt()"> Decrypt </button>
         </div>
     </div>
 </div>
