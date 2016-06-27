@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="./js/main.css">
+<link type="text/css" rel="stylesheet" href="./js/animate.min.css">
+<link type="text/css" rel="stylesheet" href="./js/star.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Song Li</title>
+</head>
+<body>
+<div id="space">
+</div>
+<div class="container">
+    <div id="main-me">
+        <div id="main-img" class="animated zoomIn">
+            <img src="./js/avatar.jpg" class="circle responsive-img">
+        </div>
+        <div id="main-text">
+            <h2>AES decrption</h2>
+            <input name="Code" type="text" maxlength="512" id="code"/>
+            <input name="Key" type="text" maxlength="512" id="key"/>
+            <div>Message:</div>
+            <div id="Message"></div>
+            <button onclick="getDecrypt()"> Decrypt </button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/aes.js"></script>
+<script type="text/javascript" src="/utils/aes.js"></script>
+
+
+</body></html>
