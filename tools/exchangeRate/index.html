@@ -3,7 +3,25 @@
 <title>Song Li</title>
 </head>
 <body>
-<div id="origin">
+<div id="">
+
+<div class="container">
+    <div id="main-me">
+        <div>
+            <h2>CNY to USD</h2>
+            CNY: <input name="cny_in" type="text" maxlength="512" id="cny_in"/>
+            <div>USD:</div>
+            <div id="usd"></div>
+            <button onclick="cnyToUsd()"> Convert </button>
+        </div>
+        <div>
+            <h2>USD to CNY</h2>
+            USD: <input name="usd_in" type="text" maxlength="512" id="usd_in"/>
+            <div>CNY:</div>
+            <div id="cny"></div>
+            <button onclick="usdToCny()"> Convert </button>
+        </div>
+    </div>
 </div>
 <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/js/exchangeRate.js"></script>
