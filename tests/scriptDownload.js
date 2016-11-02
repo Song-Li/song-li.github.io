@@ -36,7 +36,7 @@ function addToRes(cur_size, during) {
     var mean = get_res(cur_size);
     avg.push([cur_size, mean]);
     //console.log(avg);
-    if(cur_size == max_size) drawBasic(avg);
+    //if(cur_size == max_size) drawBasic(avg);
   }
 }
 
