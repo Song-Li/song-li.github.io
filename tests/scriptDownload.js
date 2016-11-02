@@ -19,9 +19,9 @@ function run(cur_size) {
     var res = end - start;
     console.log("size: " + cur_size.toString() + " round: " + cur.toString() + " start: " + start.toString() + " end: " + end.toString(), end - start);
     addToRes(cur_size, res); 
-    if(cur < payload) run(cur_size);
-    else if(cur_size < max_size) doJob(++ cur_size); 
     cur ++;
+    if(cur <= payload) run(cur_size);
+    else if(cur_size < max_size) doJob(++ cur_size); 
   }
 }
 
