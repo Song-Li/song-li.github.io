@@ -17,7 +17,7 @@ function run(cur_size) {
   window.onerror = function(e) {
     var end = performance.now();
     var res = end - start;
-    //console.log("size: " + cur_size.toString() + " round: " + cur.toString() + " start: " + start.toString() + " end: " + end.toString(), end - start);
+    console.log("size: " + cur_size.toString() + " round: " + cur.toString() + " start: " + start.toString() + " end: " + end.toString(), end - start);
     addToRes(cur_size, res); 
     cur ++;
     if(cur <= payload) run(cur_size);
