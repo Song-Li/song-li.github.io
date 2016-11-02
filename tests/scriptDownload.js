@@ -45,7 +45,7 @@ function get_res(cur_size) {
     if(r <= max_ignore) continue;
     mean += res_array[r];
   }
-  mean /= (res_array.length - max_ignore);
+  mean /= (res_array.length - max_ignore - 1);
   document.getElementById("result").innerHTML += mean.toString() + '<br>';
   return mean;
 }
