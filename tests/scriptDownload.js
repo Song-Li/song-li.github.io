@@ -6,7 +6,7 @@ var pre_start = 0;
 var ran = 0;
 var avg = [];
 var max_size = 20;
-var max_ignore = 0;
+var max_ignore = 1;
 
 function run(cur_size) {
   var file_name = cur_size.toString() + "M.js";
@@ -42,7 +42,7 @@ function addToRes(cur_size, during) {
 function get_res(cur_size) {
   var mean = 0;
   for(var r in res_array) {
-    if(r < max_ignore) continue;
+    if(r <= max_ignore) continue;
     mean += res_array[r];
   }
   mean /= (res_array.length - max_ignore);
