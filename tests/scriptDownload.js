@@ -43,10 +43,10 @@ function addToRes(cur_size, during) {
 function get_res(cur_size) {
   var mean = 0;
   for(var r in res_array) {
-    if(r <= max_ignore) continue;
+    if(r < max_ignore) continue;
     mean += res_array[r];
   }
-  mean /= (res_array.length - max_ignore - 1);
+  mean /= (res_array.length - max_ignore);
   document.getElementById("result").innerHTML += mean.toString() + '<br>';
   return mean;
 }
