@@ -1,12 +1,12 @@
 var res_array = [];
 var count = {};
 var payload = 15; 
-var cur = 1;
+var cur = 0;
 var pre_start = 0;
 var ran = 0;
 var avg = [];
 var max_size = 20;
-var max_ignore = 1;
+var max_ignore = 6;
 
 function run(cur_size) {
   var file_name = cur_size.toString() + "M.js";
@@ -17,16 +17,16 @@ function run(cur_size) {
   window.onerror = function(e) {
     var end = performance.now();
     var res = end - start;
-    console.log("size: " + cur_size.toString() + " round: " + cur.toString() + " start: " + start.toString() + " end: " + end.toString(), end - start);
     addToRes(cur_size, res); 
-    cur ++;
-    if(cur <= payload) run(cur_size);
+    if(cur < payload) run(cur_size);
     else if(cur_size < max_size) doJob(++ cur_size); 
+    cur ++;
   }
 }
 
 
 function addToRes(cur_size, during) {
+  if(cur_size == 0) return ;
   res_array.push(during); 
   if(count[during] === undefined) {
     count[during] = 0;
@@ -36,7 +36,7 @@ function addToRes(cur_size, during) {
     var mean = get_res(cur_size);
     avg.push([cur_size, mean]);
     //console.log(avg);
-    //if(cur_size == max_size) drawBasic(avg);
+    if(cur_size == max_size) drawBasic(avg);
   }
 }
 
@@ -52,7 +52,7 @@ function get_res(cur_size) {
 }
 
 function doJob(i) {
-  cur = 1;
+  cur = 0;
   res_array = [];
   run(i);
   return avg;
