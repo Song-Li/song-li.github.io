@@ -1,3 +1,4 @@
+//Modified at Thu 03 Nov 2016 05:44:52 PM UTC
 var res_array = [];
 var count = {};
 var payload = 15; 
@@ -7,9 +8,10 @@ var ran = 0;
 var avg = [];
 var max_size = 20;
 var max_ignore = 6;
+var scale = 5;
 
 function run(cur_size) {
-  var file_name = cur_size.toString() + "M.js";
+  var file_name = (cur_size * scale).toString() + "M.js";
   var element_s = document.createElement('script');
   start = performance.now();
   document.body.appendChild(element_s);
@@ -35,18 +37,21 @@ function addToRes(cur_size, during) {
   if(cur >= payload) {
     var mean = get_res(cur_size);
     avg.push([cur_size, mean]);
-    //console.log(avg);
     if(cur_size == max_size) drawBasic(avg);
   }
 }
 
 function get_res(cur_size) {
   var mean = 0;
+  /*
   for(var r in res_array) {
     if(r < max_ignore) continue;
     mean += res_array[r];
   }
   mean /= (res_array.length - max_ignore);
+  */
+  res_array.sort();
+  mean = res_array[Math.floor(res_array.length / 2)];
   document.getElementById("result").innerHTML += mean.toString() + '<br>';
   return mean;
 }
