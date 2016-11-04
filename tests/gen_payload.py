@@ -6,4 +6,4 @@ for size in range(1, 21):
     img = open(str(size * 1) + '.jpg', 'w')
     for i in range(int(payload)):
         f.write("a\n")
-        img.write("a\n")
+        img.write("abc\n")
