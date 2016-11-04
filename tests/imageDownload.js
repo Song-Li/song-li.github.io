@@ -16,7 +16,7 @@ function run(cur_size) {
   start = performance.now();
   document.body.appendChild(element_s);
   element_s.src = file_name;
-  window.onerror = function(e) {
+  element_s.onerror = function(e) {
     var end = performance.now();
     var res = end - start;
     addToRes(cur_size, res); 
