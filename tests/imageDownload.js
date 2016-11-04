@@ -12,7 +12,7 @@ var scale = 1;
 
 function run(cur_size) {
   var file_name = (cur_size * scale).toString() + ".jpg";
-  var element_s = document.createElement('script');
+  var element_s = document.createElement('img');
   start = performance.now();
   document.body.appendChild(element_s);
   element_s.src = file_name;
