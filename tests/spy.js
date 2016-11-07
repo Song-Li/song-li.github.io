@@ -32,6 +32,6 @@ function run() {
     probeView.setUint32(i * 4,i * 4 + 4);
   set();
 
-  loop = setInterval(check, 2);
+  loop = setInterval(check, 400);
 }
 
