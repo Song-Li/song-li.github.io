@@ -18,7 +18,6 @@ function check() {
     var start = performance.now();
     cur = probeView.getUint32(cnt);
     var end = performance.now();
-    console.log(start, end - start);
     if(end - start > threshold) flag = 1;
     cnt += 4;
   }
@@ -32,7 +31,6 @@ function run() {
   for (var i = 0;i < size / 4;++ i) 
     probeView.setUint32(i * 4,i * 4 + 4);
   set();
-
   loop = setInterval(check, 400);
 }
 
