@@ -25,7 +25,7 @@ function fresh() {
 function check() {
   var bit = 1;
   var pointer = 0;
-  var cnt = 1e3;
+  var cnt = 1e2;
   var type = 1;
   set();
   var start = performance.now();
