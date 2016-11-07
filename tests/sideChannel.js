@@ -31,10 +31,10 @@ function check() {
   var start = performance.now();
   while(cnt --) {
     fresh();
-    set();
-  // fresh();
+  //  set();
+   fresh();
   }
   var end = performance.now();
-  document.write("1:");
+  document.write("0:");
   document.write(end - start);
 }
