@@ -25,16 +25,17 @@ function fresh() {
 function check() {
   var bit = 1;
   var pointer = 0;
-  var cnt = 1e4;
+  var cnt = 1e5;
+  var type = 1;
   set();
-  //fresh();
   var start = performance.now();
   while(cnt --) {
     fresh();
-    set();
-   //fresh();
+    if(type == 1) set();
+    else fresh();
   }
   var end = performance.now();
-  document.write("1:");
+  if(type == 1) document.write("Diff:");
+  else document.write("Same:");
   document.write(end - start);
 }
