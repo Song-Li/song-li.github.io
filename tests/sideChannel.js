@@ -35,8 +35,8 @@ function check() {
     else fresh();
   }
   var end = performance.now();
-  if(type == 1) document.write("Diff:");
-  else document.write("Same:");
-  document.write("start" + start + "end" + end + "<br>");
+  if(type == 1) document.write("Diff: ");
+  else document.write("Same: ");
+  document.write("start " + start + " end " + end + "<br>");
   document.write(end - start);
 }
