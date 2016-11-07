@@ -35,5 +35,6 @@ function check() {
    fresh();
   }
   var end = performance.now();
+  document.write("0:");
   document.write(end - start);
 }
