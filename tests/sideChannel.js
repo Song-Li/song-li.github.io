@@ -26,7 +26,7 @@ function check() {
   var bit = 1;
   var pointer = 0;
   var cnt = 1e2;
-  var type = 1;
+  var type = 0;
   set();
   var start = performance.now();
   while(cnt --) {
