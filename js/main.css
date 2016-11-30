@@ -2,6 +2,7 @@
 
 body {
 	font-family: "Roboto", sans-serif;
+  background: url("/background/bg-4.jpg") 0% 0% / cover fixed;
 	font-size: 15px;
 }
 
