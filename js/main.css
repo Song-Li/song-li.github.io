@@ -34,7 +34,7 @@ body {
 }
 
 #main-text h2 {
-	color: #BFBFBF;
+	color: #222222;
 }
 #main-text p {
 	color: #555555;
@@ -47,12 +47,12 @@ body {
 }
 
 #main-link a {
-	color: #BFBFBF;
+	color: #222222;
 	text-decoration: none;
 }
 
 #main-link a:hover {
-	color: #333333;
+	color: #BFBFBF;
 }
 #main-text div {
 	padding-bottom: 0.8em;
