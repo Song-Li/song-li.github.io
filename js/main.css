@@ -11,7 +11,6 @@ body {
 	text-align: center;
 	top:20%;
 	left:50%;
-    margin-left: -149px;
 }
 
 #main-me p {
@@ -34,10 +33,10 @@ body {
 }
 
 #main-text h2 {
-	color: #222222;
+	color: #BFBFBF;
 }
 #main-text p {
-	color: #555555;
+	color: #999999;
 }
 
 #main-link .link:after {
@@ -47,12 +46,12 @@ body {
 }
 
 #main-link a {
-	color: #222222;
+	color: #BFBFBF;
 	text-decoration: none;
 }
 
 #main-link a:hover {
-	color: #BFBFBF;
+	color: #999999;
 }
 #main-text div {
 	padding-bottom: 0.8em;
