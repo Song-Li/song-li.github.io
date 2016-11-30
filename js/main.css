@@ -43,6 +43,21 @@ body {
 	display: inline;
 }
 
+.left {
+  color: #000;
+}
+
+.left:hover {
+  color: #CFCFCF
+}
+
+.right {
+  color: #CFCFCF;
+}
+.right:hover {
+  color: #000;
+}
+
 #main-text h2 {
 	color: #BFBFBF;
 }
@@ -57,13 +72,9 @@ body {
 }
 
 #main-link a {
-	color: #BFBFBF;
 	text-decoration: none;
 }
 
-#main-link a:hover {
-	color: #999999;
-}
 #main-text div {
 	padding-bottom: 0.8em;
 }
