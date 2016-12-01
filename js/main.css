@@ -60,11 +60,10 @@ body {
 }
 
 .left {
-  color: #000;
-}
-
-.left:hover {
   color: #CFCFCF
+}
+.left:hover {
+  color: #000;
 }
 
 .right {
