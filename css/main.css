@@ -1,0 +1,138 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+.bash-title {
+  top: 0;
+  left: 350px;
+  height: 20px;
+  width: 100%;
+  position: absolute;
+  border-style: solid;
+  border-width: thin;
+  background-color: #aaa;
+}
+
+.write {
+  margin: 20px 0px 0px 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.result {
+  margin: 20px 0px 0px 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.left-bash {
+  position: absolute;
+  border-style: solid;
+  border-color: #666;
+  border-width: thin;
+  top: 0;
+  left: 350px;
+  width: 30%;
+  height: 100%;
+}
+
+.right-bash {
+  position: absolute;
+  border-style: solid;
+  border-color: #666;
+  border-width: thin;
+  top: 0;
+  left: 30%;
+  width: 70%;
+  height: 100%;
+  margin: 0px 0px 0px 350px;
+}
+
+.result {
+  margin: 20px 0px 0px 0px;
+  width: 100%;
+  height: 100%;
+}
+
+
+.right-white {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+}
+
+#mask img {
+  opacity: 0;
+  filter: alpha(opacity=0); /* For IE8 and earlier */
+}
+
+#mask img:hover {
+  opacity: 0.5;
+  filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: black;
+  font-size: 15px;
+}
+
+#main-me {
+  position: absolute;
+  text-align: center;
+  background-color: #333;
+  top: 0;
+  left: 0;
+  width: 350px;
+  height: 100%;
+}
+
+#main-me p {
+  line-height: 0.4em;
+}
+
+#main-img {
+  padding-top: 0.8em;
+  padding-bottom: 0.2em;
+  padding-left: 5.0em;
+  padding-right: 5.0em;
+}
+
+#main-img img {
+  width: 150px;
+}
+
+#main-link div {
+  display: inline;
+}
+
+.terminal-link {
+  color: #CFCFCF
+}
+
+#main-text h2 {
+  color: #BFBFBF;
+}
+#main-text p {
+	color: #999999;
+}
+
+#main-link .link:after {
+	margin-right: 2px;
+	margin-left: 2px;
+	content: '/';
+}
+
+#main-link a {
+	text-decoration: none;
+}
+
+#main-text div {
+	padding-bottom: 0.8em;
+}
+
+.circle {
+	border-radius: 50%;
+}
+
+/*next part is used for type*/

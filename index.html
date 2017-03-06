@@ -1,51 +1,57 @@
 <!DOCTYPE html>
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <link type="text/css" rel="stylesheet" href="./js/main.css">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Song Li</title>
-    </head>
-    <body>
-      <!--
-        <div id="space">
-            <div class="stars"></div>
-            <div class="stars"></div>
-            <div class="stars"></div>
-            <div class="stars"></div>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link type="text/css" rel="stylesheet" href="./css/main.css">
+    <script src="./js/jquery.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="./js/terminal.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Li</title>
+  </head>
+  <body onload="terminal();">
+    <div class="container">
+      <div class="bash-title">
+        <font color=green>terminal</font>>bash
+      </div>
+      <div class="left-bash">
+        <div id="write" class="write">
+          <font id="write-pos" color="#FFF">
+          </font>
         </div>
-      -->
-      <div id = "mask">
-        <img id = "left-mask" src = "./background/white.png" class = "left-white">
-        <img id = "right-mask" src = "./background/white.png" class = "right-white">
-      </div> 
-        <div class="container">
-            <div id="main-me">
-                <div id="main-img" class="animated zoomIn">
-                    <img src="./js/avatar.jpg" class="circle responsive-img">
-                </div>
-                <div id="main-text">
-                  <h2><font class = "left">Son</font><font class = "right">g Li</font></h2>
-                    <p>Programmer</p>
-                    <div id="main-link">
-                        <div class="link">
-                            <a href="http://blog.songli.us/" class = "left">BLOG</a>
-                        </div>
-                        <div class="link">
-                            <a href="https://github.com/Song-Li" class = "left">GITHUB</a>
-                        </div>
-                        <div class="link">
-                          <a href="http://blog.songli.us/profile/" class = "left">RESU<div class = "right">ME</div>
-                          </a>
-                        </div>
-                        <div class="link">
-                            <a href="http://weibo.com/wushangyangguang" class = "right">WEIBO</a>
-                        </div>
-                        <div class="link">
-                            <a href="/tools/" class = "right">TOOLS</a>
-                        </div>
-                    </div>
-                </div>
+      </div>
+      <div class="right-bash">
+        <div id="result" class="result">
+          <font id="result-pos" color="#FFF">
+          </font>
+        </div>
+      </div>
+      <div id="main-me">
+        <div id="main-img" class="animated zoomIn">
+          <img src="./js/avatar.jpg" class="circle responsive-img">
+        </div>
+        <div id="main-text">
+          <h2>Song Li</h2>
+          <p>Programmer</p>
+          <div id="main-link">
+            <div class="link">
+              <a href="http://blog.songli.us/" class = "terminal-link">BLOG</a>
             </div>
+            <div class="link">
+              <a href="https://github.com/Song-Li" class = "terminal-link">GITHUB</a>
+            </div>
+            <div class="link">
+              <a href="http://blog.songli.us/profile/" class = "terminal-link">RESUME</a>
+            </div>
+            <div class="link">
+              <a href="http://weibo.com/wushangyangguang" class = "terminal-link">WEIBO</a>
+            </div>
+            <div class="link">
+              <a href="/tools/" class = "terminal-link">TOOLS</a>
+            </div>
+          </div>
         </div>
-        <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="./js/main.js"></script>
-    </body></html>
+      </div>
+    </div>
+  </body>
+</html>
