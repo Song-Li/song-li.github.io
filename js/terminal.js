@@ -22,7 +22,7 @@ results = [
   "Song Li",
   "China",
   "Lehigh University",
-  "Master Student of Computer Science",
+  "Ph.D. Student of Computer Science",
   "lisong1013@gmail.com",
   "<a href='http://blog.songli.us/' class='terminal-link'>BLOG</a>",
   '<a href="https://github.com/Song-Li" class="terminal-link">GITHUB</a>',
@@ -47,11 +47,11 @@ function type() {
 
     num ++;
     pos = 0;
-    setTimeout(type, 700);
+    setTimeout(type, 300);
     return ;
   }
   //setTimeout(type, 80 + Math.random() * (200 - 10) + 10);
-  setTimeout(type, 100);
+  setTimeout(type, 70);
 }
 
 function terminal() {
