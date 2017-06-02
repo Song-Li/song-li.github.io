@@ -26,7 +26,7 @@ results = [
   "lisong1013@gmail.com",
   "<a href='http://blog.songli.us/' class='terminal-link'>BLOG</a>",
   '<a href="https://github.com/Song-Li" class="terminal-link">GITHUB</a>',
-  '<a href="http://blog.songli.us/profile/" class="terminal-link">RESUME</a>'
+  '<a href="https://drive.google.com/file/d/0B4s900Byvv1iMkdBTzNoUnMtV0k/view" class = "terminal-link">RESUME</a>'
 ]
 
 function type() {
