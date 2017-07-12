@@ -1,39 +1,5 @@
-<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta charset="utf-8" />
-    <title>进度条</title>
-    <style type="text/css">
-.test {height:30px;width:500px;border:1px solid red;}
-#progress {float:left;height:25px;line-height:25px;text-align:center;background:#00ff21;}
-    </style>
-
-    <script type="text/javascript">
-function Load() {
-  var a =document.getElementById("progress");
-  var mother = document.getElementById("mother");
-  var offset = mother.offsetWidth / 100;
-  a.style.width = (a.offsetWidth + offset).toString() + "px";
-  a.innerHTML = Math.floor(a.offsetWidth / offset);
-  if(a.offsetWidth>=mother.offsetWidth){
-    window.clearInterval(rensheng);
-  }
-
-}
-var rensheng = window.setInterval(function () { Load(); }, 100);
-window.onload = function () { rensheng; }
-    </script>
-  </head>
+<html>
   <body>
-    <style>
-.box {width:0px;}
-    </style>
-    <div class="test" id = "mother">
-      <div class="box" id="progress"></div>
-
-    </div>
-
-
+    test
   </body>
 </html>
