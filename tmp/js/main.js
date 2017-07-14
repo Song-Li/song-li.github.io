@@ -1,26 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Earth globe</title>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
-<script src="http://d3js.org/queue.v1.min.js"></script>
-<script src = "./js/jquery.js"></script>
-<script src = "./js/star.js"></script>
-<link rel="stylesheet" type="text/css" href="main.css">
-<link rel="stylesheet" type="text/css" href="star.css">
-<head>
-<body onload="init();">
-  <script>
-
 yours = [-75.1, 40];
 mine = [-75, 40];
 hometown = [116, 39];
 
 function rotateTo(p) {
   d3.transition()
-    .duration(3500)
+    .duration(2500)
     .tween("rotate", function() {
       var r = d3.interpolate(projection.rotate(), [-p[0], -p[1]]);
       return function(t) {
@@ -29,16 +13,10 @@ function rotateTo(p) {
       };
     })
     .each("end", function() {
-      if (p[0] == yours[0] && p[1] == yours[1]) {
-        setTimeout(rotateTo(hometown), 2000);
-        $("#description").html("<center>You are here!</center>");
-      }
-      else if (p[0] == hometown[0] && p[1] == hometown[1]) {
-        $("#description").html("<center>This is my HomeTown!</center>");
-        setTimeout(rotateTo(mine), 2000);
-      } else {
-        $("#description").html("<center>I'm Here'!</center>");
-      }
+      console.log(p);
+
+      if (p[0] == yours[0] && p[1] == yours[1]) rotateTo(hometown);
+      if (p[0] == hometown[0] && p[1] == hometown[1]) rotateTo(mine);
     })
 }
 function addMarks(locations) {
@@ -115,18 +93,10 @@ function ready(error, world, countryData) {
 
   //Mouse events
 
-  function country(cnt, sel) {
+  function country(cnt, sel) { 
     for(var i = 0, l = cnt.length; i < l; i++) {
       if(cnt[i].id == sel.value) {return cnt[i];}
     }
   };
 
 };
-  </script>
-  <div id="container"></div>
-  <div class = "mainbox"> test 
-    <div id = "description" class = "description"><center> Our earth </center></div>
-  </div>
-</body>
-</html>
-
