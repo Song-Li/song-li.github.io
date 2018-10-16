@@ -1,168 +1,422 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<title>Song Li</title>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
-<script src="http://d3js.org/queue.v1.min.js"></script>
-<script src = "./js/jquery.js"></script>
-<script src = "./js/star.js"></script>
-<link rel="stylesheet" type="text/css" href="main.css">
-<link rel="stylesheet" type="text/css" href="star.css">
-<head>
-<body onload="init();">
-  <script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Song Li, A P.H.D. student">
 
-yours = [-75.1, 40];
-mine = [-75.35, 40.59];
-hometown = [116, 39];
-your_city = "";
-my_city = "Bethlehem, USA";
-my_hometown = "Hebei, China";
+	<title>Song Li</title>
 
-function degreesToRadians(degrees) {
-  return degrees * Math.PI / 180;
-}
+  <!-- Web Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+	<!-- Bootstrap core CSS -->
+	<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<!-- Font Awesome CSS -->
+	<link href="assets/css/font-awesome.min.css" rel="stylesheet" media="screen">
+	<!-- Animate css -->
+  <link href="assets/css/animate.css" rel="stylesheet">
+  <!-- Magnific css -->
+	<link href="assets/css/magnific-popup.css" rel="stylesheet">
+	<!-- Custom styles CSS -->
+	<link href="assets/css/style.css" rel="stylesheet" media="screen">
+  <!-- Responsive CSS -->
+  <link href="assets/css/responsive.css" rel="stylesheet">
 
-function distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
-  var earthRadiusKm = 6371;
+  <link rel="shortcut icon" href="assets/images/ico/favicon.png">
 
-  var dLat = degreesToRadians(lat2-lat1);
-  var dLon = degreesToRadians(lon2-lon1);
+</head>
 
-  lat1 = degreesToRadians(lat1);
-  lat2 = degreesToRadians(lat2);
+<body>
+	<!-- Preloader -->
+	<div id="tt-preloader">
+		<div id="pre-status">
+			<div class="preload-placeholder"></div>
+		</div>
+	</div>
 
-  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  return earthRadiusKm * c;
-}
+	<!-- Home Section -->
+	<section id="home" class="tt-fullHeight" data-stellar-vertical-offset="50" data-stellar-background-ratio="0.2">
+		<div class="intro">
+			<div class="intro-sub">Song Li</div>
+			<h1>CS Programmer <span>Researcher</span></h1>
+      <p>I am Song Li<br> Computer Science<br>Ph.D. student<br>Johns Hopkins University<br>Information and Network Security</p>
 
-function rotateTo(p) {
-  d3.transition()
-    .duration(2500)
-    .tween("rotate", function() {
-      var r = d3.interpolate(projection.rotate(), [-p[0], -p[1]]);
-      return function(t) {
-        projection.rotate(r(t));
-        svg.selectAll("path").attr("d", path)
-      };
-    })
-  .each("end", function() {
-    if (p[0] == yours[0] && p[1] == yours[1]) {
-      $("#description").html("<center>You are here at " + your_city + "!</center>");
-      setTimeout(rotateTo(hometown), 2000);
-    }
-    else if (p[0] == hometown[0] && p[1] == hometown[1]) {
-      $("#description").html("<center>This is my HomeTown, " + my_hometown + "!</center>");
-      setTimeout(rotateTo(mine), 2000);
-    } else {
-      var distance = distanceInKmBetweenEarthCoordinates(yours[1], yours[0], mine[1], mine[0]);
-      $("#description").html("<center>I'm Here at " + my_city + "!<br />Your are " + Math.floor(distance) + "km away from me</center>");
-    }
-  })
-}
-function addMarks(locations) {
-  //.datum({type: "mark", coordinates: [d[0], d[1]]})
-  console.log(locations);
-  locations.forEach(function(d){
-    svg.append("path", ".foreground")
-      .datum({type: "Point", coordinates: [d[0], d[1]]})
-      .attr("class", "point")
-      .attr("d", path);
-  });
-}
+      <div class="social-icons">
+        <ul class="list-inline">
+          <li><a href="https://www.weibo.com/wushangyangguang"><i class="fa fa-weibo"></i></a></li>
+          <li><a href="http://blog.songli.io"><i class="fa fa-rss"></i></a></li>
+          <li><a href="https://github.com/Song-Li"><i class="fa fa-github"></i></a></li>
+        </ul>
+      </div> <!-- /.social-icons -->
+		</div>
 
-function getClientLocation() {
-  $.getJSON("http://freegeoip.net/json/", function(data) {
-    yours = [data['longitude'], data['latitude']];
-    your_city = data['city'] + ', ' + data['country_name'];
-    addMarks([yours, mine, hometown]);
-    console.log(data);
-    rotateTo(yours);
-  });
-}
-var width = window.innerWidth,
-    height = window.innerHeight,
-    sens = 0.25,
-    focused;
-
-//Setting projection
-
-  var projection = d3.geo.orthographic()
-  .scale(width / 3)
-  .rotate([116, 39])
-.translate([width / 2, height - height / 3])
-  .clipAngle(90);
-
-var path = d3.geo.path()
-  .projection(projection);
-
-  //SVG container
-
-  var svg = d3.select("body").append("svg")
-  .attr("width", width)
-  .attr("height", height);
-
-  //Adding water
-
-  svg.append("path")
-  .datum({type: "Sphere"})
-  .attr("class", "water")
-  .attr("d", path);
+		<div class="mouse-icon">
+			<div class="wheel"></div>
+		</div>
+	</section><!-- End Home Section -->
 
 
+	<!-- Navigation -->
+	<header class="header">
+		<nav class="navbar navbar-custom" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#custom-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt=""></a>
+				</div>
 
-queue()
-  .defer(d3.json, "/world-110m.json")
-  .defer(d3.tsv, "/world-110m-country-names.tsv")
-  .await(ready);
-
-  //Main function
-
-function ready(error, world, countryData) {
-
-  var countryById = {},
-    countries = topojson.feature(world, world.objects.countries).features;
-
-  //Drawing countries on the globe
-  getClientLocation();
+				<div class="collapse navbar-collapse" id="custom-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#home">Home</a></li>
+						<li><a href="#about">About</a></li>
+						<li><a href="#resume">Resume</a></li>
+						<li><a href="#skills">Skills</a></li>
+					</ul>
+				</div>
+			</div><!-- .container -->
+		</nav>
+	</header><!-- End Navigation -->
 
 
-  var world = svg.selectAll("path.land")
-    .data(countries)
-    .enter().append("path")
-    .attr("class", "land")
-    .attr("d", path)
+    <!-- About Section -->
+    <section id="about" class="about-section section-padding">
+      <div class="container">
+        <h2 class="section-title wow fadeInUp">About Me</h2>
 
-  //Mouse events
+        <div class="row">
 
-  function country(cnt, sel) {
-    for(var i = 0, l = cnt.length; i < l; i++) {
-      if(cnt[i].id == sel.value) {return cnt[i];}
-    }
-  };
+          <div class="col-md-4 col-md-push-8">
+            <div class="biography">
+              <div class="myphoto">
+                <img src="assets/images/myphoto.jpg" alt="">
+              </div>
+              <ul>
+                <li><strong>Name:</strong> Song Li</li>
+                <li><strong>Date of birth:</strong> Oct 13 1992</li>
+                <li><strong>Nationality:</strong> Chinese</li>
+                <li><strong>Email:</strong> lisong1013@gmail.com</li>
+              </ul>
+            </div>
+          </div> <!-- col-md-4 -->
 
-};
-  </script>
-  <div id="container"></div>
-  <div class = "mainbox"> 
-    <div> 
-      <center><img src="./img/avatar.jpg" class="circle avator"></center>
+          <div class="col-md-8 col-md-pull-4">
+            <div class="short-info wow fadeInUp">
+              <h3>What I Do ?</h3>
+              <p></p>As a Ph.D. student in computer science, I'm doing research related to Web/Information/Software security. Currently, I'm focusing on Browser Fingerprinting techniques and researches. What's more, I'm also interested in Cryptography and IoT security. </p>
+            </div>
+
+              <ul class="list-check">
+                <li>Web Security</li>
+                <li>Software Security</li>
+                <li>Browser Security</li>
+                <li>Algorithm</li>
+                <li>Data Analyzing</li>
+              </ul>
+            </div>
+
+            <div class="my-signature">
+              <img src="assets/images/sign.png" alt="">
+            </div>
+
+            <div class="download-button">
+              <a class="btn btn-primary btn-lg" href="https://raw.githubusercontent.com/Song-Li/resume/master/SongLiCV.pdf"><i class="fa fa-download"></i>download my cv</a>
+            </div>
+          </div>
+
+
+        </div> <!-- /.row -->
+      </div> <!-- /.container -->
+    </section><!-- End About Section -->
+
+
+    <!-- Resume Section -->
+    <section id="resume" class="resume-section section-padding">
+        <div class="container">
+            <h2 class="section-title wow fadeInUp">Resume</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="resume-title">
+                        <h3>Education</h3>
+                    </div>
+                    <div class="resume">
+                        <ul class="timeline">
+                            <li>
+                                <div class="posted-date">
+                                    <span class="month">2007-2011</span>
+                                </div><!-- /posted-date -->
+
+                                <div class="timeline-panel wow fadeInUp">
+                                    <div class="timeline-content">
+                                        <div class="timeline-heading">
+                                            <h3>Ph.D. Student</h3>
+                                            <span>Johns Hopkins University, Maryland, USA</span>
+                                        </div><!-- /timeline-heading -->
+
+                                        <div class="timeline-body">
+                                          <p>I'm a Ph.D. student of computer science in Johns Hopkins University.</p>
+                                        </div><!-- /timeline-body -->
+                                    </div> <!-- /timeline-content -->
+                                </div><!-- /timeline-panel -->
+                            </li>
+
+                            <li class="timeline-inverted">
+                                <div class="posted-date">
+                                    <span class="month">2004-2006</span>
+                                </div><!-- /posted-date -->
+
+                                <div class="timeline-panel wow fadeInUp">
+                                    <div class="timeline-content">
+                                        <div class="timeline-heading">
+                                            <h3>Higher Secondary certificate</h3>
+                                            <span>Typography Arts, FA College, New York, USA</span>
+                                        </div><!-- /timeline-heading -->
+
+                                        <div class="timeline-body">
+                                            <p>From this college of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend.</p>
+                                        </div><!-- /timeline-body -->
+                                    </div> <!-- /timeline-content -->
+                                </div> <!-- /timeline-panel -->
+                            </li>
+
+                            <li>
+                                <div class="posted-date">
+                                  <span class="month">2000-2003</span>
+                                </div><!-- /posted-date -->
+
+                                <div class="timeline-panel wow fadeInUp">
+                                    <div class="timeline-content">
+                                        <div class="timeline-heading">
+                                            <h3>Secondary school certificate</h3>
+                                            <span>Creative Arts, Julius Jr. school, USA</span>
+                                        </div><!-- /timeline-heading -->
+
+                                        <div class="timeline-body">
+                                            <p>I was awesome at arts, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy.</p>
+                                        </div><!-- /timeline-body -->
+                                    </div> <!-- /timeline-content -->
+                                </div><!-- /timeline-panel -->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><!-- /row -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="resume-title">
+                        <h3>Experience</h3>
+                    </div>
+                    <div class="resume">
+                        <ul class="timeline">
+                            <li class="timeline-inverted">
+                                <div class="posted-date">
+                                  <span class="month">Jun. 2017-Oct. 2018</span>
+                                </div><!-- /posted-date -->
+
+                                <div class="timeline-panel wow fadeInUp">
+                                    <div class="timeline-content">
+                                        <div class="timeline-heading">
+                                            <h3>A Large-scale Measurement Study of Browser Fingerprint</h3>
+                                            <span>Software Engineer & Web Privacy Research Assistant</span>
+                                        </div><!-- /timeline-heading -->
+
+                                        <div class="timeline-body">
+                                          <p><b>Description: </b> Made a large-scale measurement of browser fingerprint, including popular features introduced by multiple research papers. Collected more than 15,500,788 visiting records from 226 countries, 960,853 pieces of dynamics information belonging to 661,827 browser instances. We analyzed the robustness, uniqueness of each feature and also extracted the dynamics of browser fingerprints and the reason for fingerprints changing.</p>
+                                          <p><b>Github Repository: </b><a href = "https://github.com/Song-Li/dynamic_fingerprinting">https://github.com/Song-Li/dynamic_fingerprinting</a></p>
+                                        </div><!-- /timeline-body -->
+                                    </div> <!-- /timeline-content -->
+                                </div><!-- /timeline-panel -->
+                            </li>
+                            <li>
+                                <div class="posted-date">
+                                  <span class="month">Oct. 2016-May 2017</span>
+                                </div><!-- /posted-date -->
+
+                                <div class="timeline-panel wow fadeInUp">
+                                    <div class="timeline-content">
+                                        <div class="timeline-heading">
+                                            <h3>Deterministic Browser</h3>
+                                            <span>Software Engineer & Web Privacy Research Assistant</span>
+                                        </div><!-- /timeline-heading -->
+
+                                        <div class="timeline-body">
+                                          <p><b>Description: </b>Built the first execution time deterministic browser, DeterFox (deterfox.com), based on Firefox open-source project to defend against timing channel attacks. The paper has been accepted by The ACM Conference on Computer and Communications Security, 2017</p>
+                                          <p><b>Github Repository: </b><a href = "https://github.com/nkdxczh/gecko-dev/tree/deterfox">https://github.com/nkdxczh/gecko-dev/tree/deterfox</a></p>
+                                        </div><!-- /timeline-body -->
+                                    </div> <!-- /timeline-content -->
+                                </div> <!-- /timeline-panel -->
+                            </li>
+
+                            <li class="timeline-inverted">
+                                <div class="posted-date">
+                                  <span class="month">Feb. 2016-Jul. 2016</span>
+                                </div><!-- /posted-date -->
+
+                                <div class="timeline-panel wow fadeInUp">
+                                    <div class="timeline-content">
+                                        <div class="timeline-heading">
+                                            <h3>Cross-browser Fingerprinting</h3>
+                                            <span>Software Engineer & Web Privacy Research Assistant</span>
+                                        </div><!-- /timeline-heading -->
+
+                                        <div class="timeline-body">
+                                          <p><b>Description: </b>Implemented the first cross-browser fingerprinting framework that relies on novel hardware and OS level features, such as graphics cards and installed writing scripts. The project paper has been accepted by Network & Distributed System Security Symposium, 2017</p>
+                                          <p><b>Github Repository: </b><a href = "https://github.com/Song-Li/cross_browser">https://github.com/Song-Li/cross_browser</a></p>
+                                        </div><!-- /timeline-body -->
+                                    </div> <!-- /timeline-content -->
+                                </div><!-- /timeline-panel -->
+                            </li>
+                            <li>
+                                <div class="posted-date">
+                                  <span class="month">Feb. 2016-Jul. 2016</span>
+                                </div><!-- /posted-date -->
+
+                                <div class="timeline-panel wow fadeInUp">
+                                    <div class="timeline-content">
+                                        <div class="timeline-heading">
+                                            <h3>Freelancer</h3>
+                                            <span>Programmer</span>
+                                        </div><!-- /timeline-heading -->
+
+                                        <div class="timeline-body">
+                                          <p><b>Description: </b>Developed more than 20 projects, such as physical simulation of water flow, parallel version of PageRank, the ant colony optimization algorithm and the genetic optimization algorithm for train station management and Tabu Search algorithm for logistics activities</p>
+                                          <p><b>Programming Languages: </b>C++, Python, JavaScript, R and MATLAB</p>
+                                        </div><!-- /timeline-body -->
+                                    </div> <!-- /timeline-content -->
+                                </div><!-- /timeline-panel -->
+                            </li>
+                            <li class="timeline-inverted">
+                                <div class="posted-date">
+                                  <span class="month">Jul. 2014-Dec. 2014</span>
+                                </div><!-- /posted-date -->
+
+                                <div class="timeline-panel wow fadeInUp">
+                                    <div class="timeline-content">
+                                        <div class="timeline-heading">
+                                            <h3>Online Contribution Management System</h3>
+                                            <span>J2EE Developer Intern in IBM</span>
+                                        </div><!-- /timeline-heading -->
+
+                                        <div class="timeline-body">
+                                          <p><b>Description: </b>Implemented some new features and fixed some bugs in a J2EE based management tool used by the IBM CICS Lv3 team</p>
+                                          <p><b>Implementation: </b>Java, Spring2 and Hibernate</p>
+                                        </div><!-- /timeline-body -->
+                                    </div> <!-- /timeline-content -->
+                                </div> <!-- /timeline-panel -->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div><!-- /row -->
+        </div><!-- /.container -->
+    </section><!-- End Resume Section -->
+
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section section-padding">
+      <div class="container">
+        <h2 class="section-title wow fadeInUp">Skills</h2>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="skill-progress">
+              <div class="skill-title"><h3>Browser Security</h3></div> 
+              <div class="progress">
+                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" ><span>95%</span>
+                </div>
+              </div><!-- /.progress -->
+            </div><!-- /.skill-progress -->
+
+            <div class="skill-progress">
+              <div class="skill-title"><h3>C++</h3></div> 
+              <div class="progress">
+                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" ><span>90%</span>
+                </div>
+              </div><!-- /.progress -->
+            </div><!-- /.skill-progress -->
+            <div class="skill-progress">
+              <div class="skill-title"><h3>Python</h3></div>  
+              <div class="progress">
+                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" ><span>85%</span>
+                </div>
+              </div><!-- /.progress -->
+            </div><!-- /.skill-progress -->
+          </div><!-- /.col-md-6 -->
+
+          <div class="col-md-6">
+            <div class="skill-progress">
+              <div class="skill-title"><h3>Algorithm</h3></div> 
+              <div class="progress">
+                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" ><span>95%</span>
+                </div>
+              </div><!-- /.progress -->
+            </div><!-- /.skill-progress -->
+            <div class="skill-progress">
+              <div class="skill-title"><h3>JavaScript</h3></div> 
+              <div class="progress">
+                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" ><span>90%</span>
+                </div>
+              </div><!-- /.progress -->
+            </div><!-- /.skill-progress -->
+            <div class="skill-progress">
+              <div class="skill-title"><h3>Data Structure</h3></div>  
+              <div class="progress">
+                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" ><span>85%</span>
+                </div>
+              </div><!-- /.progress -->
+            </div><!-- /.skill-progress -->
+          </div><!-- /.col-md-6 -->
+        </div><!-- /.row -->
+
+      </div><!-- /.container -->
+    </section><!-- End Skills Section -->
+
+
+    <section id="contact" class="contact-section section-padding">
+      <div id="mapCanvas"></div>
+    </section><!-- End Contact Section -->
+
+
+    <!-- Footer Section -->
+    <footer class="footer-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="copyright text-center">
+              <p>&copy; TrendyTheme 2015. All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer><!-- End Footer Section -->
+
+
+    <!-- Scroll-up -->
+    <div class="scroll-up">
+      <a href="#home"><i class="fa fa-angle-up"></i></a>
     </div>
-    <center><h1>Song Li</h2></center>
-    <center><div>
-        <a href = "http://blog.songli.io" class="terminal-link">BLOG</a>
-        | <a href = "https://github.com/Song-Li/" class="terminal-link">GITHUB</a>
-        | <a href="https://drive.google.com/open?id=1RvrjL1WZgusN6q6T8Lt0p1uQ-LHofIjP" class="terminal-link">RESUME</a>
-        | <a href="http://weibo.com/wushangyangguang" class="terminal-link">WEIBO</a>
-        | <a href="/tools/" class="terminal-link">TOOLS</a>
-      </div></center>
-    <center><h3 class = "description">Ph.D. Student in Computer Science</h3></center>
-    <center><div id = "description" class = "description">Our earth<div></center>
-  </div>
+
+    <!-- Javascript files -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.stellar.min.js"></script>
+    <script src="assets/js/jquery.sticky.js"></script>
+    <script src="assets/js/smoothscroll.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/jquery.countTo.js"></script>
+    <script src="assets/js/jquery.inview.min.js"></script> 
+    <script src="assets/js/jquery.easypiechart.js"></script>
+    <script src="assets/js/jquery.shuffle.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
+    <script src="assets/js/jquery.fitvids.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <script src="assets/js/scripts.js"></script>
 </body>
 </html>
-
