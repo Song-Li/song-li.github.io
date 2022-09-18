@@ -39,6 +39,7 @@
       margin-top: 10px;
       margin-bottom: 10px;
       font-size: 20px;
+      font-size: 20px;
       color: white;
       padding-left: 20px;
     }
@@ -94,6 +95,7 @@
     }
 
     /* About */
+    a:link { text-decoration: none; }
     .about-container {
       padding-top: 120px;
       padding-bottom: 120px;
@@ -126,6 +128,18 @@
     }
     #jobtitle, #email, #worksfor{
       padding-top: 15px;
+      padding-bottom: 15px;
+      font-size: 14px;
+      color: grey;
+    }
+    .department{
+      padding-top: 15px;
+      font-size: 14px;
+      color: grey;
+    }
+    #school{
+      padding-bottom: 10px;
+      font-size: 18px;
       color: grey;
     }
     .contact-div {
@@ -374,11 +388,13 @@
                     <img src="./imgs/myphoto_small.jpg" height="280" class="selfphoto">
                     <div class="basic-info-div">
                       <h2 id="name"> Song Li </h2>
-                      <h3 id="jobtitle">ZJU-100 Young Professor</h3> 
-                      <a href="https://icsr.zju.edu.cn/en/">School of Cyber Science and Technology</a>
-                      <a href="http://www.en.cs.zju.edu.cn/">College of Computer Science and Technology</a>
-                      <h3><a href="https://www.zju.edu.cn/english/">Zhejiang University</a></h3> 
-                      <h3 id="email"><img src="./imgs/e.png" width="220" height="28"/></h3>
+                      <b id="jobtitle">ZJU-100 Young Professor</b><br>
+                      <div class="department">
+                      <a class="department" href="http://www.en.cs.zju.edu.cn/">College of Computer Science and Technology</a><br>
+                      <a class="department" href="https://icsr.zju.edu.cn/en/">School of Cyber Science and Technology</a>
+                      </div>
+                      <a id="school" href="https://www.zju.edu.cn/english/"><b>Zhejiang University</b></a>
+                      <h3 id="email"><img src="./imgs/e.png" width="200" height="40"/></h3>
                     </div>
                     <div class="contact-div">
                       <a href="https://www.linkedin.com/in/song-li-b7978a105/"><img src="./imgs/linkedin.png" height="40" width="40"></a>
@@ -390,7 +406,7 @@
                     <div class="text-container">
                       <h1 id="aboutme">Bio</h1>
                       <div class="aboutme-content">
-                        My research primarily focuses on security areas such as web security, system security, and program analysis. My prior work focused on web tracking, but now is directed toward static/dynamic analysis -- trying to solve real-world challenging problems such as increasing the accuracy and efficiency of vulnerability detection.
+                        My research primarily focuses on security areas such as web security, system security, and program analysis. My prior work focused on web tracking, but now is directed toward static/dynamic analysis and privacy -- trying to solve real-world challenging problems such as increasing the accuracy and efficiency of vulnerability detection, mobile APP analysis and privacy protection.
                       </div>
                     </div>
                     <div class="text-container">
