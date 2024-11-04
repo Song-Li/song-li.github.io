@@ -1,0 +1,600 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>ADV OS Lectures</title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1504.76">
+  <style type="text/css">
+    p.p2 {margin: 0.0px 0.5px 0.0px 0.5px; text-align: center; line-height: 17.0px; font: 15.3px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p3 {margin: 0.0px 0.5px 0.0px 0.5px; text-align: center; line-height: 18.0px; font: 16.0px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p4 {margin: 0.0px 0.5px 0.0px 0.5px; line-height: 18.0px; font: 16.0px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 18.0px; font: 16.0px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 13.3px Times; color: #000000; -webkit-text-stroke: #000000}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.5px; line-height: 18.0px; font: 16.0px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 16.0px; font: 14.0px 'Helvetica Neue'; color: #0000ee; -webkit-text-stroke: #000000}
+    p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 18.0px; font: 16.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    p.p13 {margin: 0.0px 0.0px 0.0px 0.5px; line-height: 17.0px; font: 15.3px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p14 {margin: 0.0px 0.5px 0.0px 0.5px; line-height: 18.0px; font: 14.0px Arial; color: #6104fd; -webkit-text-stroke: #6104fd}
+    p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 18.0px; font: 16.0px 'Times New Roman'; color: #0000ee; -webkit-text-stroke: #0000ff}
+    p.p16 {margin: 0.0px 0.0px 0.0px 0.5px; line-height: 17.0px; font: 14.0px Times; color: #0000ee; -webkit-text-stroke: #0000ee}
+    p.p17 {margin: 0.0px 0.0px 0.0px 0.5px; line-height: 16.0px; font: 14.0px Arial; color: #0000ee; -webkit-text-stroke: #6104fd}
+    p.p18 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 14.0px Arial; color: #6104fd; -webkit-text-stroke: #6104fd}
+    p.p19 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 16.0px; font: 13.3px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p20 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 18.0px; font: 14.0px Times; color: #0000ee; -webkit-text-stroke: #000000}
+    p.p21 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    p.p22 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #0000ee; -webkit-text-stroke: #000000}
+    p.p23 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #0000ee; -webkit-text-stroke: #0000ee}
+    p.p24 {margin: 0.0px 0.0px 0.0px 0.5px; line-height: 18.0px; font: 16.0px 'Times New Roman'; color: #000000; -webkit-text-stroke: #3333ff}
+    p.p25 {margin: 0.0px 0.0px 0.0px 48.0px; line-height: 15.0px; font: 13.3px Times; color: #000000; -webkit-text-stroke: #000000}
+    p.p26 {margin: 0.0px 0.0px 0.0px 48.0px; line-height: 14.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    p.p27 {margin: 0.0px 0.0px 0.0px 48.0px; line-height: 22.0px; font: 18.7px Times; color: #000000; -webkit-text-stroke: #000000}
+    span.s1 {font-kerning: none}
+    span.s2 {text-decoration: underline ; font-kerning: none}
+    span.s3 {text-decoration: underline ; font-kerning: none; background-color: #ffffff}
+    span.s4 {font: 12.0px Times; font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
+    span.s5 {font: 12.0px Times; font-kerning: none; color: #000000}
+    span.s6 {font: 16.0px 'Times New Roman'; font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
+    span.s7 {font: 14.0px Arial; text-decoration: underline ; font-kerning: none; color: #6104fd; background-color: #ffffff; -webkit-text-stroke: 0px #6104fd}
+    span.s8 {font-kerning: none; color: #0000ff}
+    span.s9 {font: 16.0px 'Times New Roman'; font-kerning: none; color: #0000ee; -webkit-text-stroke: 0px #0000ff}
+    span.s10 {font: 14.0px 'Times New Roman'; font-kerning: none; color: #333333; background-color: #ffffff; -webkit-text-stroke: 0px #333333}
+    span.s11 {font-kerning: none; -webkit-text-stroke: 0px #000000}
+    span.s12 {font-kerning: none; color: #3333ff; -webkit-text-stroke: 0px #3333ff}
+    span.s13 {font: 16.0px 'Times New Roman'; font-kerning: none; color: #000000}
+    span.s14 {font: 14.0px Times; text-decoration: underline ; font-kerning: none; color: #0000ee}
+    span.s15 {font: 13.3px Times; font-kerning: none; color: #000000}
+    span.s16 {font-kerning: none; -webkit-text-stroke: 0px #3333ff}
+    span.s17 {font-kerning: none; color: #3333ff}
+    span.s18 {font: 16.0px 'Times New Roman'; font-kerning: none; color: #222222; -webkit-text-stroke: 0px #222222}
+    span.s19 {font: 14.0px Times; text-decoration: underline ; font-kerning: none; background-color: transparent; -webkit-text-stroke: 0px #000000}
+    span.s20 {font: 14.0px 'Helvetica Neue'; text-decoration: underline ; font-kerning: none; -webkit-text-stroke: 0px #000000}
+    span.s21 {font: 18.7px Times; text-decoration: underline ; font-kerning: none; color: #0000ff; -webkit-text-stroke: 0px #0000ff}
+    table.t1 {width: 713.3px; border-style: solid; border-width: 3.0px 3.0px 3.0px 3.0px; border-color: #000000 #000000 #000000 #000000}
+    td.td1 {width: 72.7px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #000000 #000000 #000000 #000000; padding: 1.6px 1.6px 1.6px 1.6px}
+    td.td2 {width: 186.7px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #000000 #000000 #000000 #000000; padding: 1.6px 1.6px 1.6px 1.6px}
+    td.td3 {width: 166.2px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #000000 #000000 #000000 #000000; padding: 1.6px 1.6px 1.6px 1.6px}
+    td.td4 {width: 170.3px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #000000 #000000 #000000 #000000; padding: 1.6px 1.6px 1.6px 1.6px}
+    td.td5 {width: 91.5px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #000000 #000000 #000000 #000000; padding: 1.6px 1.6px 1.6px 1.6px}
+  </style>
+</head>
+<body>
+<h2 style="margin: 0.0px 0.0px 19.9px 0.0px; line-height: 28.0px; font: 24.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>                                      Course Schedule</b></span></h2>
+<table width="713.3" cellspacing="0" cellpadding="0" class="t1">
+  <tbody>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1"><b>Date</b></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p2"><span class="s1"><b>Lectures Topics</b></span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p2"><span class="s1"><b>Presenter</b></span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p2"><span class="s1"><b>Reading</b></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p2"><span class="s1"><b>Assignment</b></span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/6<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Class overview</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p3"><span class="s1"> </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/6<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">OS Structure and Kernel</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p3"><span class="s1"> </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/6<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Process</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p3"><span class="s1"> </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/6</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Something New</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p8"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/13</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">Kernel Paper Presentation I</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p6"><span class="s1">Defense: <br>
+Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <h2 style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 16.0px; font: 14.0px Arial; color: #0000ee; -webkit-text-stroke: #6104fd; background-color: #ffffff"><span class="s2"><a href="https://www.usenix.org/system/files/conference/osdi16/osdi16-gu.pdf">CertiKOS: An Extensible Architecture for Building Certified Concurrent OS Kernels</a></span></h2>
+       
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/13</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">Kernel Paper Presentation II</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p6"><span class="s1">Defense: <br>
+Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <h2 style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 16.0px; font: 14.0px Arial; color: #0000ee; -webkit-text-stroke: #6104fd"><span class="s3"><a href="https://www.usenix.org/system/files/conference/osdi16/osdi16-schatzberg.pdf">EbbRT: A Framework for Building Per-Application Library Operating Systems</a></span><span class="s4"><br>
+</span></h2>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/13</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">Synchronization Paper Presentation I</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p6"><span class="s1"><span class="Apple-converted-space"> </span>Defense: <br>
+ Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p11"><span class="s3"><a href="http://www.read.seas.harvard.edu/~kohler/pubs/herman16type-aware.pdf">Type-Aware Transactions for Faster Concurrent Code</a></span><span class="s5"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/13<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">Synchronization Paper Presentation II</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p6"><span class="s1"> Defense: <br>
+ Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p16"><span class="s2"><a href="http://i.cs.hku.hk/~heming/papers/crane-sosp15.pdf">PAXOS Made Transparent</a></span><span class="s10"> </span></p>
+        <p class="p8"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+      </td>
+    </tr>
+ 
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/20</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">Synchronization</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+      </td>
+    </tr>
+    
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/20</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p13"><span class="s1">Synchronization Paper Presentation III</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p6"><span class="s1">Defense: <br>
+ Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p14"><span class="s6"> <a href="https://www.usenix.org/system/files/osdi22-yildiz.pdf"><span class="s7">Immortal Threads: Multithreaded Event-driven Intermittent Computing  on Ultra-Low-Power Microcontrollers</span></a><a href="https://people.cs.umass.edu/%7Eemery/pubs/dthreads-sosp11.pdf"><span class="s8"><br>
+</span></a></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/20</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Memory</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+</span></a></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/20</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p13"><span class="s1">Memory Paper Presentation</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p6"><span class="s1">Defense: <br>
+ Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p14"><span class="s6"> <a href="https://www.usenix.org/system/files/conference/osdi16/osdi16-kwon.pdf"><span class="s7">Coordinated and Efficient Huge Page Management with Ingens</span></a><a href="https://people.cs.umass.edu/%7Eemery/pubs/dthreads-sosp11.pdf"><span class="s8"><br>
+</span></a></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/27</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">File Systems</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p15"><span class="s1"><a href="https://www.usenix.org/system/files/conference/fast15/fast15-paper-aghayev.pdf"><br>
+<span class="s9"></span></a></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+   
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/27</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">File System Paper Presentation I</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p6"><span class="s1"> Defense: <br>
+ Offense:</td>
+      <td valign="middle" class="td4">
+        <p class="p17"><span class="s3"><a href="https://www.usenix.org/system/files/conference/osdi16/osdi16-curtis-maury.pdf">To Waffinity and Beyond: A Scalable Architecture for Incremental Parallelization of File System Code<span class="s2"></span></a></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p3"><span class="s1"> </span></p>
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/27</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">I/O</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p8"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">11/27</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">I/O Paper Presentation</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p9"><span class="s1">Defense: <br>
+Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p20"><span class="s13"> <a href="https://www.usenix.org/system/files/conference/atc16/atc16_paper-vora.pdf"><span class="s14">Load the Edges You Need: A Generic I/O Optimization for Disk-based Graph Processing</span></a></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">12/4<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">OS Security</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s12"> </span><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p8"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">12/4<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">Security Paper Presentation</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p9"><span class="s16"><span class="Apple-converted-space"> </span></span><span class="s1">Defense: <br>
+ Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p23"><span class="s2"><a href="https://www.usenix.org/system/files/conference/osdi16/osdi16-hunt.pdf">Ryoan: A Distributed Sandbox for Untrusted Computation on Secret Data</a></span><span class="s4"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">12/4<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">World Wide Web </span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s12"> </span><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p8"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">12/4<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">WWW Paper Presentation</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p9"><span class="s12"> </span><span class="s1">Defense: <br>
+ Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p22"><span class="s2"><a href="https://songli.io/papers/imc20.pdf">Who Touched My Browser Fingerprint?: A Large-scale Measurement Study and Classification of Fingerprint Dynamics</a></span><span class="s15"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p19"><span class="s1"></span></p>
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">12/11<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">Symbolic Execution<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p21"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">12/11<span class="Apple-converted-space"> </span></span></p>
+      </td>>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">Symbolic Execution Presentation</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p9"><span class="s12"> </span><span class="s1">Defense: <br>
+ Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p22"><span class="s2"><a href="https://www.usenix.org/system/files/sec22-li-song.pdf">Mining Node.js Vulnerabilities via
+          Object Dependence Graph and Query</a></span><span class="s15"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p19"><span class="s1"></span></p>
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">12/11<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Virtual Machines</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1"> Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p8"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">12/11<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Virtual Machine Paper Presentation</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p24"><span class="s17"> </span><span class="s1">Defense: <br>
+ Offense: </p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p11"><span class="s3"><a href="https://sites.google.com/site/chengluwei/2016-eurosys-lwcheng.pdf?attredirects=0">vScale: Automatic and Efficient Processor Scaling for SMP Virtual Machines<span class="s20"></span></a></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">12/18<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Paper Presentations OR Final Project Presentation I</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">12/25<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Final Project Presentation II</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+<p class="p25"><span class="s1"> </span></p>
+<p class="p26"><span class="s1"> </span></p>
+<p class="p26"><span class="s1"> </span></p>
+<p class="p26"><span class="s1"> </span></p>
+<p class="p26"><span class="s1"> </span></p>
+</body>
+</html>
