@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Song Li</title>
+    <link rel="icon" href="./imgs/favicon.png">
+    <meta name="viewport" content="width=device-width">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-511WP1TWHC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-511WP1TWHC');
+    </script>
+  </head>
+  <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Verdana";
+}
+
+    /* navbar */
+    .navbar-container {
+      background-color: #3d3d3d;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+    .navbar-inner-container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .page-title {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 20px;
+      font-size: 20px;
+      color: white;
+      padding-left: 20px;
+    }
+    .navbar-list {
+      list-style-type: none;
+      overflow: hidden;
+      padding-right: 20px;
+    }
+    .navbar-item {
+      float: left;
+    }
+    .navbar-href {
+      display: block;
+      text-align: right;
+      text-decoration: none;
+      margin: 12.5px;
+      color: white;
+    }
+    .navbar-href-active {
+      display: block;
+      text-align: right;
+      text-decoration: none;
+      margin: 12.5px;
+      color: #ffcc00;
+    }
+    .navbar-href:hover {
+      /*background-color: #707070;*/
+      color: #ffcc00;
+    }
+    .dropdown-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+    /*    .dropdown-container:hover {
+          background-color: #3d3d3d;
+    }*/
+    #dropdown {
+      margin: 7px;
+      margin-right: 10px;
+      display: none;
+      cursor: pointer;
+    }
+    @media screen and (max-width: 869px) {
+      .navbar-item {
+        float: none;
+      }
+      .navbar-href, .navbar-href-active {
+        display: none;
+      }
+      #dropdown {
+        display: block;
+      }
+    }
+
+    /* About */
+    a:link { text-decoration: none; }
+    .about-container {
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+    .about-inner-container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* left photo part */
+    .about-container-left {
+      flex: 33.333%;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 50px;
+    }
+    .selfphoto {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .basic-info-div {
+      text-align: center;
+      padding-top: 10px;
+    }
+    #name {
+      padding-top: 15px;
+    }
+    #jobtitle, #email, #worksfor{
+      padding-top: 15px;
+      padding-bottom: 15px;
+      font-size: 14px;
+      color: grey;
+    }
+    .department{
+      padding-top: 15px;
+      font-size: 14px;
+      color: grey;
+    }
+    #school{
+      padding-bottom: 11px;
+      font-size: 18px;
+      color: grey;
+    }
+    .contact-div {
+      text-align: center;
+      padding-top: 15px;
+    }
+    /* right intro part */
+    .about-container-right {
+      flex: 66.667%;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    #aboutme {
+      padding-bottom: 30px;
+    }
+    .aboutme-content {
+      line-height: 25px;
+    }
+    #education {
+      padding-top: 50px;
+      padding-bottom: 20px;
+    }
+    .university {
+      padding-top: 10px;
+    }
+    .degree {
+      color: grey;
+      padding-top: 10px;
+      padding-left: 20px;
+    }
+    /*    .uni-icon {
+          vertical-align: middle;
+          margin-left: 15px;
+    }*/
+
+    /* Publications */
+    .publications-container {
+      padding-top: 120px;
+      padding-bottom: 120px;
+      background-color: #f0f0f0;
+    }
+    .publications-inner-container {
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    #publications {
+      padding-bottom: 30px;
+    }
+    .publications-content {
+      line-height: 25px;
+    }
+    .publications-list {
+      list-style-type: none;
+    }
+    .publications-list-item {
+      padding: 10px;
+      margin-bottom: 20px;
+      background-color: white;
+    }
+    .publications-title {
+      font-size: 20px;
+      padding-bottom: 10px;
+    }
+    .publications-authors {
+      color: steelblue;
+    }
+    .publications-conference {
+      color: mediumseagreen;
+    }
+
+    /* Professional*/
+    .professional-container {
+      padding-top: 120px;
+      padding-bottom: 120px;
+      /*background-color: #f0f0f0;*/
+    }
+    .professional-inner-container {
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    #professional {
+    }
+    .professional-activity {
+      padding: 20px 0px 10px 0px;
+    }
+    .professional-content {
+      padding: 20px 0px 20px 0px;
+    }
+    .professional-title {
+      padding: 10px
+    }
+    .professional-list {
+      list-style-type: none;
+    }
+    .professional-list-item {
+      padding: 10px 20px 10px 20px;
+    }
+  </style>
+  <script>
+    function load() {
+          resize();
+          var url = document.URL.split("#");
+          var loc = url[url.length-1];
+          if (loc === "About" || (loc!=="About"&&loc!=="Publications"&&loc!=="Professional")) {
+                activateAbout("click");
+              }
+          if (loc === "Publications") {
+                activatePublications("click");
+              }
+          if (loc === "Professional") {
+                activateProfessional("click");
+              }
+        }
+
+    function scroll() {
+          var curOffset = this.pageYOffset;
+          var pubOffset = document.getElementById("Publications").offsetTop - this.screen.height/2;
+          var proOffset = document.getElementById("Professional").offsetTop - this.screen.height/2;
+          if (curOffset >= proOffset) {
+                activateProfessional("scroll");
+              }
+          else if (curOffset < pubOffset) {
+                activateAbout("scroll");
+              }
+          else {
+                activatePublications("scroll");
+              }
+        }
+
+    function resize() {
+          var curWidth = document.getElementsByClassName("navbar-inner-container")[0].getBoundingClientRect().width;
+          var navbarhrefs = document.getElementsByClassName("navbar-href");
+          var navbarhrefactive = document.getElementsByClassName("navbar-href-active")[0];
+          var dropdown = document.getElementById("dropdown");
+          if (curWidth < 870) {
+                modifyNavbarHrefs(navbarhrefs, navbarhrefactive, "none");
+                dropdown.style.display = "block";
+              }
+          else {
+                modifyNavbarHrefs(navbarhrefs, navbarhrefactive, "block");
+                dropdown.style.display = "none";
+              }
+        }
+
+    function modifyNavbarHrefs(navbarhrefs, navbarhrefactive, action) {
+          for (i=0; i<navbarhrefs.length; i++) {
+                navbarhrefs[i].style.display = action;
+              }
+          if (navbarhrefactive) {
+                navbarhrefactive.style.display = action;
+              }
+        }
+
+    function clickMenu() {
+          var navbarhrefs = document.getElementsByClassName("navbar-href");
+          var navbarhrefactive = document.getElementsByClassName("navbar-href-active")[0];
+          if (navbarhrefs[0].style.display !== "block") {
+                modifyNavbarHrefs(navbarhrefs, navbarhrefactive, "block");
+              }
+          else {
+                modifyNavbarHrefs(navbarhrefs, navbarhrefactive, "none");
+              }
+        }
+
+    function closeMenu() {
+          var menu = document.getElementById("dropdown").style.display;
+          if (menu !== "none") {
+                var navbarhrefs = document.getElementsByClassName("navbar-href");
+                var navbarhrefactive = document.getElementsByClassName("navbar-href-active")[0];
+                modifyNavbarHrefs(navbarhrefs, navbarhrefactive, "none");
+              }
+        }
+
+    function activatePublications (action) {
+          var url = document.URL.split("#")[0] + "#Publications"
+          document.getElementById("navbar-about").className = "navbar-href";
+          document.getElementById("navbar-professional").className = "navbar-href";
+          document.getElementById("navbar-publications").className = "navbar-href-active";
+          this.history.replaceState({}, null, url);
+          if (action !== "scroll"){
+                closeMenu();
+              }
+        }
+
+    function activateAbout(action) {
+          var url = document.URL.split("#")[0] + "#About"
+          document.getElementById("navbar-about").className = "navbar-href-active";
+          document.getElementById("navbar-professional").className = "navbar-href";
+          document.getElementById("navbar-publications").className = "navbar-href";
+          this.history.replaceState({}, null, url);
+          if (action !== "scroll"){
+                closeMenu();
+              }
+        }
+
+    function activateProfessional(action) {
+          var url = document.URL.split("#")[0] + "#Professional"
+          document.getElementById("navbar-about").className = "navbar-href";
+          document.getElementById("navbar-publications").className = "navbar-href";
+          document.getElementById("navbar-professional").className = "navbar-href-active";
+          this.history.replaceState({}, null, url);
+          if (action !== "scroll"){
+                closeMenu();
+              }
+        }
+  </script>
+          <body onload="load()" onscroll="scroll()" onresize="resize()">
+            <div class="container">
+
+              <div class="navbar-container">
+                <div class="navbar-inner-container">
+                  <div class="page-title-div">
+                    <div class="page-title">Song Li's Homepage</div>
+                  </div>
+                  <div class="navbar-div">
+                    <ul class="navbar-list">
+                      <li class="navbar-item dropdown-container">
+                        <img src="./imgs/dropdown.png" height="30" width="30" id="dropdown" onclick="clickMenu()">
+                      </li>
+                      <li class="navbar-item">
+                        <a href="#About" class="navbar-href" id="navbar-about" onclick="activateAbout('click')">About</a>
+                      </li>
+                      <li class="navbar-item">
+                        <a href="#Publications" class="navbar-href" id="navbar-publications" onclick="activatePublications('click')">Publications</a>
+                      </li>
+                      <li class="navbar-item">
+                        <a href="#Professional" class="navbar-href" id="navbar-professional" onclick="activateProfessional('click')">Professional Activities</a>
+                      </li>
+                      <li class="navbar-item">
+                        <a href="./files/SongLiCV.pdf" class="navbar-href">CV</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="about-container" id="About">
+                <div class="about-inner-container">
+                  <div class="about-container-left">
+                    <img src="./imgs/myphoto_small.jpg" height="280" class="selfphoto">
+                    <div class="basic-info-div">
+                      <h2 id="name"> Song Li </h2>
+                      <b id="jobtitle">ZJU-100 Young Professor</b><br>
+                      <div class="department">
+                      <a class="department" href="http://www.en.cs.zju.edu.cn/">College of Computer Science and Technology</a><br>
+                      <a class="department" href="https://icsr.zju.edu.cn/en/">School of Cyber Science and Technology</a>
+                      </div>
+                      <a id="school" href="https://www.zju.edu.cn/english/"><b>Zhejiang University</b></a>
+                      <h3 id="email"><img src="./imgs/e.png" width="200" height="40"/></h3>
+                    </div>
+                    <div class="contact-div">
+                      <a href="https://www.linkedin.com/in/song-li-b7978a105/"><img src="./imgs/linkedin.png" height="40" width="40"></a>
+                      <a href="https://github.com/Song-Li"><img src="./imgs/github.png" height="40" width="40"></a>
+                      <a href="https://scholar.google.com/citations?user=BBPDISIAAAAJ&hl=en"><img src="./imgs/scholar.png" height="40" width="40"></a>
+                    </div>
+                  </div>
+                  <div class="about-container-right">
+                    <div class="text-container">
+                      <h1 id="aboutme">Bio</h1>
+                      <div class="aboutme-content">
+                        My research primarily focuses on security areas such as web security, system security, and program analysis. My prior work focused on web tracking, but now is directed toward static/dynamic analysis and privacy -- trying to solve real-world challenging problems such as increasing the accuracy and efficiency of vulnerability detection, mobile APP analysis and privacy protection.
+                      </div>
+                    </div>
+                    <div class="text-container">
+                      <h2 id="education">Education</h2>
+                      <div class="university">
+                        Ph.D. in Computer Science, Aug. 2018 - Feb. 2022
+                      </div>
+                      <div class="degree">Advisor: <a href="https://yinzhicao.org/">Dr. Yinzhi Cao</a></div>
+                      <div class="degree">Johns Hopkins University</div>
+                      <div class="university">
+                        M.S. in Computer Science and Engineering, Aug. 2015 - May. 2017
+                      </div>
+                      <div class="degree">Lehigh University</div>
+                      <div class="university">
+                        B.S. in Software Engineering, Aug. 2011 - May. 2015
+                      </div>
+                      <div class="degree">Beijing Institute of Technology</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="publications-container" id="Publications">
+                <div class="publications-inner-container">
+                  <h1 id="publications">Publications</h1>
+                  <div class="publications-content">
+                    <ul class="publications-list">
+
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [IEEE S&P '25] Follow My Flow: Unveiling Client-Side Prototype Pollution Gadgets from One Million Real-World Websites
+                        </div>
+                        <div class="publications-authors">
+                          Zifeng Kang, Muxi Lyu, Zhengyu Liu, Jianjia Yu, Runqi Fan, <b>Song Li</b>, Yinzhi Cao
+                        </div>
+                        <div class="publications-conference">
+                          to appear in the Proceedings of the IEEE Symposium on Security and Privacy (Oakland), 2025.
+                        </div>
+                      </li>
+
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [TIFS] Sensitive Behavioral Chain-focused Android Malware Detection Fused with AST Semantics
+                        </div>
+                        <div class="publications-authors">
+                           Jiacheng Gong, Weina Niu, <b>Song Li</b>, Mingxue Zhang, Xiaosong Zhang 
+                        </div>
+                        <div class="publications-conference">
+                          IEEE Transactions on Information Forensics and Security
+                        </div>
+                      </li>
+
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [TIFS] GraphTunnel: Robust DNS Tunnel Detection Based on DNS Recursive Resolution Graph
+                        </div>
+                        <div class="publications-authors">
+                          Guangyuan Gao, Weina Niu, Jiacheng Gong, Dujuan Gu, <b>Song Li</b>, Mingxue Zhang, Xiaosong Zhang
+                        </div>
+                        <div class="publications-conference">
+                          IEEE Transactions on Information Forensics and Security
+                        </div>
+                      </li>
+                      
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [SoCC' 24] SQLStateGuard: Statement-Level SQL Injection Defense Based on Learning-Driven Middleware
+                        </div>
+                        <div class="publications-authors">
+                          Xin Liu, Yuanyuan Huang, Tianyi Wang, <b>Song Li</b>, Weina Niu, Jun Shen, Qingguo Zhou, Xiaokang Zhou
+                        </div>
+                        <div class="publications-conference">
+                          to appear in the Proceedings of the The 15th ACM Symposium on Cloud Computing (SoCC), 2024
+                        </div>
+                      </li>
+
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [MM '24] What's the Real: A Novel Design Philosophy for Robust AI-Synthesized Voice Detection
+                        </div>
+                        <div class="publications-authors">
+                          Xuan Hai, Xin Liu, Yuan Tan, Gang Liu, <b>Song Li</b>, Weina Niu, Rui Zhou, Xiaokang Zhou
+                        </div>
+                        <div class="publications-conference">
+                          in the Proceedings of the ACM Multimedia 2024
+                        </div>
+                        <div class="publications-others">
+                          <a href="./papers/MM24.pdf">[paper]</a>
+                        </div>
+                      </li>
+
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [ICME '24] Ghost-in-Wave: How Speaker-Irrelative Features Interfere DeepFake Voice Detectors
+                        </div>
+                        <div class="publications-authors">
+                          Xuan Hai, Xin Liu, Zhaorun Chen, Yuan Tan, <b>Song Li</b>, Weina Niu, Gang Liu, Rui Zhou, QINGGUO ZHOU
+                        </div>
+                        <div class="publications-conference">
+                          in the Proceedings of the IEEE Conference on Multimedia Expo 2024 
+                        </div>
+                      </li>
+
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [CCS '23] CoCo: Efficient Browser Extension Vulnerability Detection via Coverage-guided, Concurrent Abstract Interpretation
+                        </div>
+                        <div class="publications-authors">
+                          Jianjia Yu, <b>Song Li</b>, Junmin Zhu, and Yinzhi Cao,
+                        </div>
+                        <div class="publications-conference">
+                          <b>Distinguished Paper Award</b>
+                        </div>
+                        <div class="publications-conference">
+                          in the Proceedings of The ACM Conference on Computer and Communications Security (CCS), 2023
+                        </div>
+                        <div class="publications-others">
+                          <a href="./papers/CoCo.pdf">[paper]</a>
+                        </div>
+                      </li>
+
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [IEEE S&P '23] Scaling JavaScript Abstract Interpretation to Detect and Exploit Node.js Taint-style Vulnerability
+                        </div>
+                        <div class="publications-authors">
+                          Mingqing Kang, Yichao Xu, <b>Song Li</b>, Rigel Gjomemo, Jianwei Hou, V.N. Venkatakrishnan, and Yinzhi Cao
+                        </div>
+                        <div class="publications-conference">
+                          in the Proceedings of the IEEE Symposium on Security and Privacy (Oakland), 2023.
+                        </div>
+                        <div class="publications-others">
+                          <a href="./papers/ODGen-FAST.pdf">[paper]</a>
+                          <br>
+                          The research results in 21 CVEs, e.g., <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-25805">CVE-2023-25805</a>.
+                        </div>
+                      </li>
+
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [USENIX Security '22]Mining Node.js Vulnerabilities via Object Dependence Graph and Query
+                        </div>
+                        <div class="publications-authors">
+                          <b>Song Li</b>, Mingqing Kang, Jianwei Hou, Yinzhi Cao
+                        </div>
+                        <div class="publications-conference">
+                          in the Proceedings of the 31th USENIX Security Symposium, 2022
+                        </div>
+                        <div class="publications-others">
+                          <a href="./papers/odgen.pdf">[paper]</a>
+                          <a href="https://github.com/Song-Li/ODGen">[source code]</a>
+                          <br>
+                          The artifact is evaluated and the results are reproduced by the USENIX AE committee. 
+                          <br>Badges: <b>Artifacts Available, Artifacts Functional, Results Reproduced</b>
+                          <br>
+                          The research results in 70 CVEs, e.g., <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10777">CVE-2019-10777</a> in aws-lambda and <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-7625">CVE-2020-7625</a> in op-browser.
+                        </div>
+                      </li>
+
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [NDSS '22]Probe the Proto: Measuring Client-Side Prototype Pollution Vulnerabilities of One Million Real-world Websites
+                        </div>
+                        <div class="publications-authors">
+                          Zifeng Kang, <b>Song Li</b>, Yinzhi Cao
+                        </div>
+                        <div class="publications-conference">
+                          in the Proceedings of Network & Distributed System Security Symposium (NDSS), 2022
+                        </div>
+                        <div class="publications-others">
+                          <a href="./papers/ProbetheProto.pdf">[paper]</a>
+                          <a href="https://github.com/client-pp/ProbetheProto">[source code]</a>
+                          <br>
+                          The research results in 2,738 real-world websites, including ten among the top 1,000 Tranco websites, which are vulnerable to 2,917 zero-day, exploitable prototype pollution vulnerabilities. 48 vulnerabilities further lead to XSS, 736 to cookie manipulations, and 830 to URL manipulations. A detailed list of vulnerable websites(excluding some websites that cannot be reached or are still in the process of vulnerability patching) is <a href="https://github.com/client-pp/ProbetheProto/blob/main/vul_site_info.md">here</a>.
+                          <br>
+                        </div>
+                      </li>
+
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [AsiaCCS '22] GraphTrack: A Graph-based Cross-Device Tracking Framework
+                        </div>
+                        <div class="publications-authors">
+                          Binghui Wang, Tianchen Zhou, <b>Song Li</b>, Yinzhi Cao, and Neil Gong
+                        </div>
+                        <div class="publications-conference">
+                          in the Proceedings of ACM Asia Conference on Computer and Communications Security, 2022.
+                        </div>
+                      </li>
+
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [ESEC/FSE '21]Detecting Node.js Prototype Pollution Vulnerabilities via Object Lookup Analysis
+                        </div>
+                        <div class="publications-authors">
+                          <b>Song Li</b>, Mingqing Kang, Jianwei Hou, Yinzhi Cao
+                        </div>
+                        <div class="publications-conference">
+                          in the Proceeding of the ACM Joint European Software Engineering Conference and Symposium on-the Foundations of Software Engineering (ESEC/FSE), 2021
+                        </div>
+                        <div class="publications-others">
+                          <a href="./papers/fse21_objlupansys.pdf">[paper]</a>
+                          <a href="https://dl.acm.org/doi/10.1145/3468264.3468542">[DOI]</a>
+                          <a href="https://github.com/Song-Li/ObjLupAnsys">[source code]</a>
+                          <br>
+                          The research results in 11 CVEs, e.g., <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10795">CVE-2019-10795</a> in undefsafe (>5M weekly downloads) and <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-7643">CVE-2020-7643</a> in paypal-adaptive.
+                        </div>
+                      </li>
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [IMC '20]Who Touched My Fingerprint? A Large-scale Measurement Study and Classification of Fingerprint Dynamics
+                        </div>
+                        <div class="publications-authors">
+                          <b>Song Li</b>, Yinzhi Cao
+                        </div>
+                        <div class="publications-conference">
+                          in the Proceeding of the Internet Measurement Conference (IMC), 2020
+                        </div>
+                        <div class="publications-others">
+                          <a href="./papers/imc20.pdf">[paper]</a>
+                          <a href="https://dl.acm.org/doi/10.1145/3419394.3423614">[DOI/video]</a>
+                        </div>
+                      </li>
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [USENIX Security '19]Rendered Private: Making GLSL Execution Uniform to Prevent WebGL-based Browser Fingerprinting
+                        </div>
+                        <div class="publications-authors">
+                          Shujiang Wu, <b>Song Li</b> and Yinzhi Cao, Ningfei Wang
+                        </div>
+                        <div class="publications-conference">
+                          in the Proceeding of the 28th USENIX Security Symposium, 2019
+                        </div>
+                        <div class="publications-others">
+                          <a href="./papers/unigl.pdf">[paper]</a>
+                        </div>
+                      </li>
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [CCS '17]Deterministic Browser
+                        </div>
+                        <div class="publications-authors">
+                          Yinzhi Cao, Zhanhao Chen, <b>Song Li</b>, Shujiang Wu
+                        </div>
+                        <div class="publications-conference">
+                          in the Proceeding of ACM Conference on Computer and Communications Security (CCS), 2017
+                        </div>
+                        <div class="publications-others">
+                          <a href="./papers/deterfox.pdf">[paper]</a>
+                        </div>
+                      </li>
+                      <li class="publications-list-item">
+                        <div class="publications-title">
+                          [NDSS '17](Cross-)Browser Fingerprinting via OS and Hardware Level Features
+                        </div>
+                        <div class="publications-authors">
+                          Yinzhi Cao, <b>Song Li*</b> and Erik Wijmans <br>
+                          (* First student author)
+                        </div>
+                        <div class="publications-conference">
+                          in the Proceeding of the Annual Network & Distributed System Security Symposium (NDSS), 2017
+                        </div>
+                        <div class="publications-others">
+                          <a href="./papers/crossbrowsertracking_NDSS17.pdf">[paper]</a>
+                          <a href="https://www.youtube.com/watch?v=piftpgsZE9g">[video]</a>
+                          <a href="https://github.com/Song-Li/cross_browser">[source code]</a>
+                        </div>
+                        The research is featured by many media outlets, such as <br>
+                        <div class="publications-others">
+                          <a href="https://www.bleepingcomputer.com/news/security/new-fingerprinting-techniques-identify-users-across-different-browsers-on-the-same-pc/">BeepingComputer</a>,<a href = "http://www.zdnet.com/article/no-hiding-from-this-new-web-fingerprinting-tech-but-one-browser-can-still-hide-your-id/"> ZDNet</a>, <a href = "http://www.toptechnews.com/article/index.php?story_id=12000B14FYDC"> Top Tech News</a>, <a href = "https://www.eurekalert.org/pub_releases/2017-02/lu-rdf021017.php">EurekAlert</a>, <a href="https://arstechnica.com/security/2017/02/now-sites-can-fingerprint-you-online-even-when-you-use-multiple-browsers/">Ars Technica</a>, <a href = "https://fossbytes.com/research-cross-browser-fingerprinting-indentification/">Fossbytes</a>, <a href="http://www.sci-tech-today.com/news/Tech-Can-Track-You-Anywhere-Online/story.xhtml?story_id=032003WTTCE8"> Sci-Tech Today</a>, <a href = "http://thehackernews.com/2017/02/cross-browser-tracking.html">The Hackers News</a>,<br> <a href = "https://www.theregister.co.uk/2017/01/13/its_not_just_your_browser_your_machine_can_be_fingerprinted_easily/">The Register</a>, <a href="http://www.i-programmer.info/news/86-browsers/10562-high-tech-cross-browser-fingerprinting.html">I Programmer</a>, <a href="http://www.digitaljournal.com/internet/new-way-of-tracking-users-across-different-web-browsers/article/487301">Digital Journal</a> and <a href="http://spectrum.ieee.org/tech-talk/telecom/internet/new-online-fingerprinting-technique-works-across-browsers">IEEE Spectrum</a></div>
+<br/>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="professional-container" id="Professional">
+                <div class="professional-inner-container">
+                  <h1 id="professional">Professional Activities</h1>
+                  <div class="professional-content">
+                    <h2 class="professional-activity">Program Committee</h3>
+                      <li class="professional-list-item">
+                        <b>IEEE S&P</b>: IEEE S&P '25
+                      </li>
+                    <li class="professional-list-item">
+                      <b>USENIX Security</b>: USENIX Security '24, '25
+                    </li>
+                    <li class="professional-list-item">
+                      <b>TheWebConf</b>: TheWebConf '23
+                    </li>
+                    <li class="professional-list-item">
+                      <b>USENIX Security</b>: USENIX Security '22 AE
+                    </li>
+                    <h2 class="professional-activity">Journal Reviewer</h3>
+                    <li class="professional-list-item">
+                      <b>IEEE Transactions on Information Forensics and Security (TIFS)</b> 
+                    </li>
+                    <li class="professional-list-item">
+                      <b>IEEE Transactions on Dependable and Secure Computing (TDSC)</b> 
+                    </li>
+                    <li class="professional-list-item">
+                      <b>ACM Computing Surveys</b> 
+                    </li>
+                    <li class="professional-list-item">
+                      <b>Empirical Software Engineering</b> 
+                    </li>
+                    <h2 class="professional-activity">External Reviewer for</h3>
+                    <li class="professional-list-item">
+                      <b>WWW</b>: International World Wide Web Conference, Security and Privacy Track, 2018
+                    </li>
+                    <li class="professional-list-item">
+                      <b>TheWebConf (formerly known as WWW)</b>:  The ACM Web Conference 2022, Security, Privacy, and Trust Track, 2022
+                    </li>
+
+                    <h2 class="professional-activity">TA and RA</h2>
+                      <li class="professional-list-item">
+                        <b>Teaching Assistant</b>: Web Security, Johns Hopkins University, Fall/2019
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Research Assistant</b>: Web Security, Lehigh University, advisor: Yinzhi Cao, 10/2015-04/2017
+                      </li>
+                    <h2 class="professional-activity">Research Mentoring</h2>
+                    <h3 class="professional-title">PhD Students</h3>
+                      <li class="professional-list-item">
+                        <b>Runqi Fan</b>: Zhejiang University, 09/2023-Present
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Fan Wu</b>: Zhejiang University, 09/2023-Present
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Jinhong Liu</b>: Zhejiang University, 09/2022-Present
+                      </li>
+                    </h3>
+                    <h3 class="professional-title">Master Students</h3>
+                    <b>Current:</b><br>
+                      <li class="professional-list-item">
+                        <b>Xiuwen Shi</b>: Zhejiang University, 09/2023-Present
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Weisi Cao</b>: Zhejiang University, 09/2023-Present
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Da Huang</b>: Zhejiang University, 09/2023-Present
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Min Ni</b>: Zhejiang University, 09/2024-Present
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Jifeng Yao</b>: Zhejiang University, 09/2024-Present
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Xiaotian Wang</b>: Zhejiang University, 09/2024-Present
+                      </li>
+                      <b>Past:</b><br>
+                      <li class="professional-list-item">
+                        <b>Yichao Xu</b>: Johns Hopkins University, 07/2021-07/2022
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Siqi Cao</b>: Johns Hopkins University, 12/2020-03/2021
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Huangyin Chen</b>: Johns Hopkins University, 12/2020-03/2021
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Qingshan Zhang</b>: Johns Hopkins University, 12/2020-03/2021
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Mingqing Kang</b>: Johns Hopkins University, now a PhD student at the Johns Hopkins University, 03/2019-08/2020
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Queenie Gao</b>: Johns Hopkins University, 12/2019-03/2020
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Minjie Fu</b>: Johns Hopkins University, First Job: Facebook, 12/2019-03/2020
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Jingyi Li</b>: Johns Hopkins University, 12/2019-03/2020
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Guanlong Wu</b>: Johns Hopkins University, now a PhD student at the University of Virginia, 04/2018-03/2019
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Ningfei Wang</b>: Lehigh University, now a PhD student at the University of California, Irvine, 10/2017-05/2018
+                      </li>
+                      <h3 class="professional-title">BS Students</h3>
+                      <li class="professional-list-item">
+                        <b>Rohan Jasani</b>: Indian Institutes of Technology, 06/2020-09/2020
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Tianchen Zhang</b>: Beihang University, 06/2020-09/2020
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Gongqi Huang</b>: Johns Hopkins University, 08/2019-02/2020
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Xueqi Ren</b>: Lehigh University, then a Master student at the Columbia University, 10/2017-05/2018
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Olivia Orrell-Jones</b>: Brown University, 05/2017-08/2017
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Erik Wijmans</b>: Washington University in St. Louis, now a PhD student at the Georgia Institute of Technology, 05/2016-08/2016
+                      </li>
+                      <h3 class="professional-title"> High School Students:</h3>
+                      <li class="professional-list-item">
+                        <b>Kylie Gong</b>: 07/2021-09/2021
+                      </li>
+                      <li class="professional-list-item">
+                        <b>Kevin Yao</b>: 07/2021-09/2021
+                      </li>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </body>
+</html>

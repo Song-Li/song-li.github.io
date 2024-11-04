@@ -1,0 +1,636 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>ADV System Security</title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1504.76">
+  <style type="text/css">
+    p.p2 {margin: 0.0px 0.5px 0.0px 0.5px; text-align: center; line-height: 17.0px; font: 15.3px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p3 {margin: 0.0px 0.5px 0.0px 0.5px; text-align: center; line-height: 18.0px; font: 16.0px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p4 {margin: 0.0px 0.5px 0.0px 0.5px; line-height: 18.0px; font: 16.0px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 18.0px; font: 16.0px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 13.3px Times; color: #000000; -webkit-text-stroke: #000000}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.5px; line-height: 18.0px; font: 16.0px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 16.0px; font: 14.0px 'Helvetica Neue'; color: #0000ee; -webkit-text-stroke: #000000}
+    p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 18.0px; font: 16.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    p.p13 {margin: 0.0px 0.0px 0.0px 0.5px; line-height: 17.0px; font: 15.3px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p14 {margin: 0.0px 0.5px 0.0px 0.5px; line-height: 18.0px; font: 14.0px Arial; color: #6104fd; -webkit-text-stroke: #6104fd}
+    p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 18.0px; font: 16.0px 'Times New Roman'; color: #0000ee; -webkit-text-stroke: #0000ff}
+    p.p16 {margin: 0.0px 0.0px 0.0px 0.5px; line-height: 17.0px; font: 14.0px Times; color: #0000ee; -webkit-text-stroke: #0000ee}
+    p.p17 {margin: 0.0px 0.0px 0.0px 0.5px; line-height: 16.0px; font: 14.0px Arial; color: #0000ee; -webkit-text-stroke: #6104fd}
+    p.p18 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 14.0px Arial; color: #6104fd; -webkit-text-stroke: #6104fd}
+    p.p19 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 16.0px; font: 13.3px 'Times New Roman'; color: #000000; -webkit-text-stroke: #000000}
+    p.p20 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 18.0px; font: 14.0px Times; color: #0000ee; -webkit-text-stroke: #000000}
+    p.p21 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    p.p22 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #0000ee; -webkit-text-stroke: #000000}
+    p.p23 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #0000ee; -webkit-text-stroke: #0000ee}
+    p.p24 {margin: 0.0px 0.0px 0.0px 0.5px; line-height: 18.0px; font: 16.0px 'Times New Roman'; color: #000000; -webkit-text-stroke: #3333ff}
+    p.p25 {margin: 0.0px 0.0px 0.0px 48.0px; line-height: 15.0px; font: 13.3px Times; color: #000000; -webkit-text-stroke: #000000}
+    p.p26 {margin: 0.0px 0.0px 0.0px 48.0px; line-height: 14.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    p.p27 {margin: 0.0px 0.0px 0.0px 48.0px; line-height: 22.0px; font: 18.7px Times; color: #000000; -webkit-text-stroke: #000000}
+    span.s1 {font-kerning: none}
+    span.s2 {text-decoration: underline ; font-kerning: none}
+    span.s3 {text-decoration: underline ; font-kerning: none; background-color: #ffffff}
+    span.s4 {font: 12.0px Times; font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
+    span.s5 {font: 12.0px Times; font-kerning: none; color: #000000}
+    span.s6 {font: 16.0px 'Times New Roman'; font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
+    span.s7 {font: 14.0px Arial; text-decoration: underline ; font-kerning: none; color: #6104fd; background-color: #ffffff; -webkit-text-stroke: 0px #6104fd}
+    span.s8 {font-kerning: none; color: #0000ff}
+    span.s9 {font: 16.0px 'Times New Roman'; font-kerning: none; color: #0000ee; -webkit-text-stroke: 0px #0000ff}
+    span.s10 {font: 14.0px 'Times New Roman'; font-kerning: none; color: #333333; background-color: #ffffff; -webkit-text-stroke: 0px #333333}
+    span.s11 {font-kerning: none; -webkit-text-stroke: 0px #000000}
+    span.s12 {font-kerning: none; color: #3333ff; -webkit-text-stroke: 0px #3333ff}
+    span.s13 {font: 16.0px 'Times New Roman'; font-kerning: none; color: #000000}
+    span.s14 {font: 14.0px Times; text-decoration: underline ; font-kerning: none; color: #0000ee}
+    span.s15 {font: 13.3px Times; font-kerning: none; color: #000000}
+    span.s16 {font-kerning: none; -webkit-text-stroke: 0px #3333ff}
+    span.s17 {font-kerning: none; color: #3333ff}
+    span.s18 {font: 16.0px 'Times New Roman'; font-kerning: none; color: #222222; -webkit-text-stroke: 0px #222222}
+    span.s19 {font: 14.0px Times; text-decoration: underline ; font-kerning: none; background-color: transparent; -webkit-text-stroke: 0px #000000}
+    span.s20 {font: 14.0px 'Helvetica Neue'; text-decoration: underline ; font-kerning: none; -webkit-text-stroke: 0px #000000}
+    span.s21 {font: 18.7px Times; text-decoration: underline ; font-kerning: none; color: #0000ff; -webkit-text-stroke: 0px #0000ff}
+    table.t1 {width: 713.3px; border-style: solid; border-width: 3.0px 3.0px 3.0px 3.0px; border-color: #000000 #000000 #000000 #000000}
+    td.td1 {width: 72.7px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #000000 #000000 #000000 #000000; padding: 1.6px 1.6px 1.6px 1.6px}
+    td.td2 {width: 186.7px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #000000 #000000 #000000 #000000; padding: 1.6px 1.6px 1.6px 1.6px}
+    td.td3 {width: 166.2px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #000000 #000000 #000000 #000000; padding: 1.6px 1.6px 1.6px 1.6px}
+    td.td4 {width: 170.3px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #000000 #000000 #000000 #000000; padding: 1.6px 1.6px 1.6px 1.6px}
+    td.td5 {width: 91.5px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #000000 #000000 #000000 #000000; padding: 1.6px 1.6px 1.6px 1.6px}
+  </style>
+</head>
+<body>
+<h2 style="margin: 0.0px 0.0px 19.9px 0.0px; line-height: 28.0px; font: 24.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>                                      Course Schedule</b></span></h2>
+<table width="713.3" cellspacing="0" cellpadding="0" class="t1">
+  <tbody>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1"><b>Date</b></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p2"><span class="s1"><b>Lectures Topics</b></span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p2"><span class="s1"><b>Presenter</b></span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p2"><span class="s1"><b>Reading</b></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p2"><span class="s1"><b>Assignment</b></span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">3/1<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Class overview</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p3"><span class="s1"> </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">3/1<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Software Vulnerability I</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p3"><span class="s1"> </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">3/1<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Software Vulnerability II</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p3"><span class="s1"> </span></p>
+      </td>
+    </tr>   
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1">3/8</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p3"><span class="s1">Software Vulnerability Paper Presentation</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p2"><span class="s1">Defense:</span></p>
+        <p class="p2"><span class="s1">Offense:</span></p>
+        <p class="p2"><span class="s1">Defense:<span class="Apple-converted-space"> </span></span></p>
+        <p class="p2"><span class="s1">Offense:</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p6"><span class="s4"><a href="http://www.cs.columbia.edu/~simha/ccs15_heisenbyte.pdf"><span class="s5">Heisenbyte: Thwarting memory disclosure attacks using destructive code reads</span></a></span><span class="s2">, CCS 2015.</span></p>
+        <p class="p3"><span class="s1"> </span></p>
+        <p class="p3"><span class="s1"> </span></p>
+        <p class="p6"><span class="s4"><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/li-song"><span class="s5">Mining Node.js Vulnerabilities via Object Dependence Graph and Query</span></a></span><span class="s2">, Usenix 2022.</span></p>
+        <p class="p7"><span class="s1"> </span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"></span><br></p>
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">3/15<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Web Security</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p3"><span class="s1"> </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1">3/15</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p3"><span class="s1">Web Paper Presentation I</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p2"><span class="s1">Defense:</span></p>
+        <p class="p2"><span class="s1">Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p10"><span class="s9"><a href="https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_kohlbrenner.pdf">Trusted Browsers for Uncertain Times</a></span><span class="s2">, USENIX Security 2016.</span></p>
+        <p class="p3"><span class="s1"> </span></p>
+      </td>
+      <td valign="middle" class="td5">
+    
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1">3/15</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p3"><span class="s1">Web Paper Presentation II</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p2"><span class="s1">Defense:</span></p>
+        <p class="p2"><span class="s1">Offense:</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p11"><span class="s9"><a href="https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_van-goethem.pdf">Request and Conquer: Exposing Cross-Origin Resource Size</a></span><span class="s2">, USENIX Security 2016.</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p2"><span class="s1"> </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">3/22</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Mobile Security and Privacy</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p8"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1">3/22</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p3"><span class="s1">Mobile Paper Presentation I</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p2"><span class="s1">Defense: </span></p>
+        <p class="p2"><span class="s1">Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p11"><span class="s9"><a href="https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_backes-android.pdf">On Demystifying the Android Application Framework: Re-Visiting Android Permission Specification Analysis</a></span><span class="s2">, USENIX Security 2016.  </span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"></span><br></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1">3/29</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p3"><span class="s1">Mobile Paper Presentation II</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p2"><span class="s1">Defense: </span></p>
+        <p class="p2"><span class="s1">Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p11"><span class="s11"><a href="https://www.cs.ucsb.edu/~vigna/publications/2016_SP_Triggerscope.pdf">TriggerScope: Towards Detecting Logic Bombs in Android Applications</a></span><span class="s12">,</span></p>
+        <p class="p12"><span class="s13">IEEE Security and Privacy (Oakland), 2016.<span class="Apple-converted-space"> </span></span></p>
+      </td><td></td>
+    </tr>
+    
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1">3/29</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p3"><span class="s1">Mobile Paper Presentation III</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p2"><span class="s10"> </span><span class="s1">Defense:</span></p>
+        <p class="p2"><span class="s1">Offense: </span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p13"><span class="s9"><a href="http://www.ieee-security.org/TC/SP2016/papers/0824a655.pdf">Staying Secure and Unprepared: Understanding and Mitigating the Security Risks of Apple ZeroConf</a></span><span class="s6">, </span><span class="s14">IEEE Security and Privacy (Oakland), 2016.</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p2"><span class="s1"> </span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">3/29</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">Software Defined Networking</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1">4/5</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p3"><span class="s1">SDN Paper Presentation</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p2"><span class="s1">Defense:</span></p>
+        <p class="p2"><span class="s1">Offense:</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p14"><span class="s1"> </span></p>
+        <p class="p15"><span class="s11"><a href="http://faculty.cse.tamu.edu/guofei/paper/AvantGuard-CCS13.pdf">AVANT-GUARD: Scalable and Vigilant Switch Flow Management in Software-Defined Networks</a></span><span class="s15">, in the Proc. of ACM CCS 2013.</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"></span><br></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">4/5</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">SSL-TLS</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+</span></a></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+
+   
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1">4/12</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p3"><span class="s1">SSL/TLS Paper Presentation I</span></p>
+      </td>
+      <td valign="middle" class="td3">
+                <p class="p2"><span class="s1">Defense:</span></p>
+        <p class="p2"><span class="s1">Offense:</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p11"><span class="s11"><a href="https://madiba.encs.concordia.ca/~x_decarn/papers/tls-proxy-ndss2016.pdf">Killed by Proxy: Analyzing Client-end TLS Interception Software</a></span><span class="s15">, NDSS 2016.</span><span class="s2"><span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p9"><span class="s1"></span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1">4/12</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p3"><span class="s1">TLS/SSL Paper Presentation II</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p2"><span class="s1">Defense:</span></p>
+        <p class="p2"><span class="s1">Offense:</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p11"><span class="s11"><a href="https://www.internetsociety.org/sites/default/files/blogs-media/tls-wild-internet-wide-analysis-tls-based-protocols-electronic-communication.pdf">TLS in the Wild: An Internet-wide Analysis of TLS-based Protocols for Electronic Communication</a></span><span class="s15">, NDSS 2016.</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"></span><br></p>
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">4/19</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Mid-term Project Presentation</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p15"><span class="s1"><a href="https://www.usenix.org/system/files/conference/fast15/fast15-paper-aghayev.pdf"><br>
+<span class="s9"></span></a></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">4/26</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Mid-term Project Presentation</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p15"><span class="s1"><a href="https://www.usenix.org/system/files/conference/fast15/fast15-paper-aghayev.pdf"><br>
+<span class="s9"></span></a></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">5/3</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Firewalls, IDS and Social Media</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p15"><span class="s1"><a href="https://www.usenix.org/system/files/conference/fast15/fast15-paper-aghayev.pdf"><br>
+<span class="s9"></span></a></span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+  
+ 
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1">5/3</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p3"><span class="s1">Social Network Security Paper Presentation</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p2"><span class="s1">Defense:</span></p>
+        <p class="p2"><span class="s1">Offense:<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p11"><span class="s11"><a href="https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_gong.pdf">You Are Who You Know and How You Behave: Attribute Inference Attacks via Users’ Social Friends and Behaviors</a></span><span class="s15">, USENIX Security 2016. </span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p9"><span class="s1"></span></p>
+      </td>
+    </tr>
+    <tr>
+      <tr>
+        <td valign="middle" class="td1">
+          <p class="p2"><span class="s1">5/10</span></p>
+        </td>
+        <td valign="middle" class="td2">
+          <p class="p3"><span class="s1">Machine Learning Security</span></p>
+        </td>
+        <td valign="middle" class="td3">
+          <p class="p2"><span class="s1">Dr. Song Li</span></p>
+        </td>
+        <td valign="middle" class="td4">
+          <p class="p5"><span class="s1"></span><br></p>
+        </td>
+        <td valign="middle" class="td5">
+          <p class="p5"><span class="s1"></span><br></p>
+        </td>
+      </tr>
+        <td valign="middle" class="td1">
+          <p class="p2"><span class="s1">5/10</span></p>
+        </td>
+        <td valign="middle" class="td2">
+          <p class="p3"><span class="s1">Machine Learning Security Paper Presentation I</span></p>
+        </td>
+        <td valign="middle" class="td3">
+          <p class="p2"><span class="s1">Defense: </span></p>
+          <p class="p2"><span class="s1">Offense: </span></p>
+        </td>
+        <td valign="middle" class="td4">
+          <p class="p11"><span class="s11"><a href="https://arxiv.org/pdf/1511.04508.pdf">Distillation as a Defense to Adversarial Perturbations against Deep Neural Networks</a></span><span class="s15">, IEEE Security and Privacy, 2016.</span></p>
+        </td>
+        <td valign="middle" class="td5">
+          <p class="p5"><span class="s1"></span><br></p>
+        </td>
+      </tr>
+      <tr>
+        <td valign="middle" class="td1">
+          <p class="p2"><span class="s1">5/17</span></p>
+        </td>
+        <td valign="middle" class="td2">
+          <p class="p3"><span class="s1">Machine Learning Security Paper Presentation II</span></p>
+        </td>
+        <td valign="middle" class="td3">
+          <p class="p2"><span class="s1">Defense: <span class="Apple-converted-space"> </span></span></p>
+          <p class="p2"><span class="s1">Offense: </span></p>
+        </td>
+        <td valign="middle" class="td4">
+          <p class="p11"><span class="s11"><a href="https://arxiv.org/pdf/1607.00133v1.pdf">Deep Learning with Differential Privacy</a></span><span class="s17">, </span><span class="s15">CCS 2016</span><span class="s2">.</span></p>
+        </td>
+        <td valign="middle" class="td5">
+          <p class="p5"><span class="s1"></span><br></p>
+        </td>
+      </tr>
+      <tr>
+        <td valign="middle" class="td1">
+          <p class="p2"><span class="s1">5/17 </span></p>
+        </td>
+        <td valign="middle" class="td2">
+          <p class="p3"><span class="s1">Machine Learning Security Paper Presentation III</span></p>
+        </td>
+        <td valign="middle" class="td3">
+          <p class="p2"><span class="s1">Defense: <span class="Apple-converted-space"> </span></span></p>
+          <p class="p2"><span class="s1">Offense: </span></p>
+        </td>
+        <td valign="middle" class="td4">
+          <p class="p11"><span class="s11"><a href="https://www.usenix.org/conference/usenixsecurity23/presentation/prokos">Squint Hard Enough: Attacking Perceptual Hashing with Adversarial Machine Learning</a></span><span class="s17">, </span><span class="s15">Usenix 2023</span><span class="s2">.</span></p>
+        </td>
+        <td valign="middle" class="td5">
+          <p class="p5"><span class="s1"></span><br></p>
+        </td>
+      </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">5/17<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p9"><span class="s1">Privacy</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Dr. Song Li</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p8"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1">5/24</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p3"><span class="s1">Privacy Paper Presentation I</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Defense:<span class="Apple-converted-space"> </span></span></p>
+        <p class="p3"><span class="s1">Offense:</span></p>
+        
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p11"><span class="s9"><a href="https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_winter.pdf">Identifying and Characterizing Sybils in the Tor Network</a></span><span class="s2">, USENIX Security 2016.</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"></span><br></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p2"><span class="s1">5/24</span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p3"><span class="s1">Privacy Paper Presentation II</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p3"><span class="s1">Defense:<span class="Apple-converted-space"> </span></span></p>
+        <p class="p3"><span class="s1">Offense:</span></p>
+        
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p11"><span class="s9"><a href="https://www.ndss-symposium.org/ndss2017/ndss-2017-programme/cross-browser-fingerprinting-os-and-hardware-level-features/">(Cross-)Browser Fingerprinting via OS and Hardware Level Features</a></span><span class="s2">, NDSS 2017.</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"></span><br></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">6/7<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Paper Presentations OR Final Project Presentation I</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p3"><span class="s1">6/14<span class="Apple-converted-space"> </span></span></p>
+      </td>
+      <td valign="middle" class="td2">
+        <p class="p4"><span class="s1">Final Project Presentation II</span></p>
+      </td>
+      <td valign="middle" class="td3">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td4">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+      <td valign="middle" class="td5">
+        <p class="p5"><span class="s1"><br>
+</span></p>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+<p class="p25"><span class="s1"> </span></p>
+<p class="p26"><span class="s1"> </span></p>
+<p class="p26"><span class="s1"> </span></p>
+<p class="p26"><span class="s1"> </span></p>
+<p class="p26"><span class="s1"> </span></p>
+</body>
+</html>
