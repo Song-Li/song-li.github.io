@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸神下凡点将系统</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020b14;
+            --main-color: #00f3ff; /* 荧光青，这种颜色比深蓝更有“未来感” */
+            --dim-color: #004e66;
+            --text-color: #e0f7ff;
+            --alert-color: #ff3c00;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Share Tech Mono', monospace; /* 等宽字体 */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px; /* 网格背景 */
+        }
+
+        /* --- 装饰性扫描线 --- */
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: rgba(0, 243, 255, 0.3);
+            box-shadow: 0 0 10px var(--main-color);
+            animation: scan 4s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { top: -10%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 110%; opacity: 0; }
+        }
+
+        /* --- 主容器 --- */
+        .interface-container {
+            position: relative;
+            z-index: 10;
+            width: 80%;
+            max-width: 1000px;
+            border: 1px solid var(--dim-color);
+            padding: 40px;
+            background: rgba(2, 11, 20, 0.85);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            /* 切角效果 */
+            clip-path: polygon(
+                20px 0, 100% 0, 
+                100% calc(100% - 20px), calc(100% - 20px) 100%, 
+                0 100%, 0 20px
+            );
+        }
+
+        /* --- 角落装饰 --- */
+        .corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--main-color);
+            transition: all 0.5s;
+        }
+        .tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+        .tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+        .bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+        .br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+        /* --- 标题 --- */
+        header {
+            border-bottom: 1px solid var(--dim-color);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: var(--main-color);
+            text-transform: uppercase;
+        }
+
+        .sub-header {
+            font-size: 0.8rem;
+            color: var(--dim-color);
+        }
+
+        /* --- 名单网格 --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .student-node {
+            position: relative;
+            border: 1px solid var(--dim-color);
+            padding: 15px 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            background: rgba(0, 78, 102, 0.1);
+            transition: 0.3s;
+            cursor: default;
+        }
+
+        /* 选中态：高亮框 + 填充 */
+        .student-node.selected {
+            border-color: var(--main-color);
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--main-color);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            font-weight: bold;
+        }
+
+        /* 选中标记 */
+        .student-node.selected::after {
+            content: "[ LOCKED ]";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.6rem;
+            background: var(--bg-color);
+            padding: 0 5px;
+            color: var(--main-color);
+        }
+
+        /* --- 控制区 --- */
+        .control-area {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+        }
+
+        button {
+            background: transparent;
+            border: 1px solid var(--main-color);
+            color: var(--main-color);
+            padding: 15px 40px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            background: var(--main-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 20px var(--main-color);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button:disabled {
+            border-color: #333;
+            color: #333;
+            cursor: not-allowed;
+            box-shadow: none;
+            background: transparent;
+        }
+
+        /* 终端日志模拟 */
+        .console-log {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #555;
+            height: 20px;
+            text-align: center;
+        }
+        
+        /* 正在运算时的文字特效 */
+        .decoding {
+            color: #fff;
+            text-shadow: 0 0 5px #fff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="scan-line"></div>
+
+    <div class="interface-container">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+
+        <header>
+            <div>
+                <h1>诸神下凡点将系统</h1>
+                <div style="font-size: 0.8rem; opacity: 0.7;">ZHEJIANG UNIVERSITY / RESEARCH GROUP / 按需出征，随机下凡</div>
+            </div>
+            <div class="sub-header">
+                SYSTEM_STATUS: <span id="sys-status" style="color:var(--main-color)">ONLINE</span><br>
+                DATE: <span id="sys-date">2026.01.08</span>
+            </div>
+        </header>
+
+        <div class="grid" id="grid">
+            </div>
+
+        <div class="control-area">
+            <button id="btn-run" onclick="runSequence()">EXECUTE [运行]</button>
+        </div>
+
+        <div class="console-log" id="console-output">
+            > WAITING FOR INPUT...
+        </div>
+    </div>
+
+    <script>
+        // ================= 配置区域 =================
+        const config = {
+            // 名单：支持任意数量
+            students: [
+                "刘晋宏", "范润琦", "曹伟思", "黄达", "吴凡",
+                "史修文", "倪旻", "姚霁峰", "王啸天", "骆奕炜",
+                "谭乔峰", "吴俊铭", "丁彦文", "孙鹏雨", "牟俊浩"
+            ],
+            targetCount: 6, // 抽取人数
+            scrambleDuration: 1500, // 乱码跳动时长(ms)
+        };
+
+        // ================= 逻辑区域 =================
+        const grid = document.getElementById('grid');
+        const btn = document.getElementById('btn-run');
+        const consoleOut = document.getElementById('console-output');
+        const sysStatus = document.getElementById('sys-status');
+
+        // ==========================================
+        function updateBeijingTime() {
+            const now = new Date();
+            
+            // 使用 Intl API 强制转换为 'Asia/Shanghai' 时区
+            // 这样无论电脑在纽约还是伦敦，都会自动处理 "明天" 或 "昨天" 的日期变更
+            const options = {
+                timeZone: 'Asia/Shanghai',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false // 24小时制，更像军用/科研终端
+            };
+            
+            // 生成字符串，例如 "2026/01/08 09:30:00"
+            const timeStr = now.toLocaleString('zh-CN', options);
+
+            // 将斜杠 "/" 替换为点 "." (2026.01.08) 以保持科技感的视觉风格
+            document.getElementById('sys-date').innerText = timeStr.replace(/\//g, '.');
+        }
+
+        // 立即执行并每秒刷新
+        updateBeijingTime();
+        setInterval(updateBeijingTime, 1000);
+
+        // 初始化网格
+        function init() {
+            grid.innerHTML = '';
+            config.students.forEach((name, idx) => {
+                let div = document.createElement('div');
+                div.className = 'student-node';
+                div.id = `node-${idx}`;
+                div.dataset.rawName = name; // 存储真实姓名
+                div.innerText = name;
+                grid.appendChild(div);
+            });
+        }
+
+        // 生成随机乱码字符
+        function randomChar() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
+            return chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+
+        // 生成与名字等长的乱码
+        function scrambleText(text) {
+            return text.split('').map(() => randomChar()).join('');
+        }
+
+        let isRunning = false;
+
+        function runSequence() {
+            if (isRunning) return;
+            isRunning = true;
+            btn.disabled = true;
+            btn.innerText = "PROCESSING...";
+            sysStatus.innerText = "CALCULATING";
+            sysStatus.style.color = "#ff3c00"; // 红色警告色
+            consoleOut.innerText = "> INITIALIZING RANDOM SEED...";
+
+            // 1. 重置所有状态
+            document.querySelectorAll('.student-node').forEach(node => {
+                node.classList.remove('selected');
+                node.innerText = node.dataset.rawName; 
+            });
+
+            // 2. 选取幸运儿 (Fisher-Yates 洗牌)
+            let indices = Array.from({length: config.students.length}, (_, i) => i);
+            let selectedIndices = [];
+            for (let i = 0; i < config.targetCount; i++) {
+                let rand = Math.floor(Math.random() * indices.length);
+                selectedIndices.push(indices[rand]);
+                indices.splice(rand, 1);
+            }
+
+            // 3. 开始乱码动画
+            // 我们让所有人的名字都变成乱码跳动，营造数据流的感觉
+            let nodes = document.querySelectorAll('.student-node');
+            let duration = config.scrambleDuration;
+            let interval = 50; // 刷新频率
+            let steps = duration / interval;
+            let step = 0;
+
+            let timer = setInterval(() => {
+                step++;
+                
+                // 让所有格子显示乱码
+                nodes.forEach(node => {
+                    // 只有未被锁定的格子才跳动（这里还没开始锁定，所以是所有）
+                    node.innerText = scrambleText(node.dataset.rawName);
+                    node.classList.add('decoding');
+                });
+
+                // 动画结束
+                if (step >= steps) {
+                    clearInterval(timer);
+                    finalize(selectedIndices);
+                }
+            }, interval);
+        }
+
+        function finalize(selectedIndices) {
+            let nodes = document.querySelectorAll('.student-node');
+            
+            // 先恢复所有人的名字
+            nodes.forEach(node => {
+                node.innerText = node.dataset.rawName;
+                node.classList.remove('decoding');
+            });
+
+            // 逐个锁定 (带一点延迟，更有节奏感)
+            selectedIndices.forEach((idx, i) => {
+                setTimeout(() => {
+                    let target = document.getElementById(`node-${idx}`);
+                    target.classList.add('selected');
+                    // 播放一个音效逻辑或者视觉闪烁可以加在这里
+                }, i * 200);
+            });
+
+            // 恢复按钮
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerText = "EXECUTE [运行]";
+                sysStatus.innerText = "ONLINE";
+                sysStatus.style.color = "#00f3ff";
+                consoleOut.innerText = `> SEQUENCE COMPLETE. ${config.targetCount} TARGETS LOCKED.`;
+                isRunning = false;
+            }, selectedIndices.length * 200 + 500);
+        }
+
+        // 启动
+        init();
+
+    </script>
+</body>
+</html>
