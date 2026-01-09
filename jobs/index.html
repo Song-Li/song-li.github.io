@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>指挥官战术中心 V3</title>
+    <style>
+        /* --- 基础与布局 --- */
+        body { margin: 0; overflow: hidden; background-color: #05060a; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #aabcd1; }
+        #canvas { position: absolute; top: 0; left: 0; z-index: 1; }
+        
+        /* --- 玻璃拟态控制台 --- */
+        .glass-panel {
+            background: rgba(16, 20, 30, 0.85);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 6px;
+        }
+
+        /* --- 左上：任务创建区 --- */
+        #console {
+            position: absolute; top: 20px; left: 20px; width: 300px; z-index: 10;
+            padding: 20px;
+        }
+        
+        h2 { margin: 0 0 15px 0; color: #00f0ff; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid rgba(0,240,255,0.2); padding-bottom: 8px; }
+        
+        .form-row { margin-bottom: 12px; }
+        label { display: block; font-size: 11px; color: #5aa; margin-bottom: 4px; text-transform: uppercase; }
+        
+        input, select {
+            width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.6);
+            border: 1px solid #334; color: #fff; padding: 6px 10px; outline: none;
+            font-size: 13px; border-radius: 3px;
+        }
+        input:focus, select:focus { border-color: #00f0ff; box-shadow: 0 0 5px rgba(0,240,255,0.2); }
+        
+        button#dispatchBtn {
+            width: 100%; background: linear-gradient(135deg, #00f0ff 0%, #0088ff 100%);
+            border: none; padding: 10px; color: #000; font-weight: 800; cursor: pointer;
+            text-transform: uppercase; margin-top: 10px;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            transition: all 0.2s;
+        }
+        button#dispatchBtn:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(0,136,255,0.4); }
+
+        /* --- 底部：任务监控列表 --- */
+        #monitor {
+            position: absolute; bottom: 20px; left: 20px; right: 20px; height: 200px; z-index: 10;
+            display: flex; flex-direction: column;
+        }
+        #monitor-header {
+            padding: 10px 15px; background: rgba(0, 240, 255, 0.1); 
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(0,240,255,0.2);
+        }
+        #task-table-container { flex: 1; overflow-y: auto; padding: 0; }
+        
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        th { text-align: left; padding: 8px 15px; color: #00f0ff; position: sticky; top: 0; background: rgba(10,14,20,0.95); }
+        td { padding: 6px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        tr:hover td { background: rgba(0,240,255,0.05); }
+        
+        .status-badge { display: inline-block; padding: 2px 6px; border-radius: 2px; font-size: 10px; }
+        .badge-process { background: rgba(0,240,255,0.2); color: #00f0ff; }
+        
+        .action-btn {
+            background: transparent; border: 1px solid #5aa; color: #5aa;
+            padding: 2px 8px; cursor: pointer; font-size: 10px; border-radius: 2px;
+        }
+        .action-btn:hover { background: #5aa; color: #000; }
+
+        /* --- 统计角标 --- */
+        .stat-box { font-family: 'Consolas', monospace; font-size: 12px; color: #00f0ff; }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <div id="console" class="glass-panel">
+        <h2>Mission Control / 指挥台</h2>
+        
+        <div class="form-row">
+            <label>任务详情</label>
+            <input type="text" id="taskTitle" placeholder="输入任务名称..." value="系统安全审计">
+        </div>
+
+        <div class="form-row">
+            <label>截止时间 (DDL)</label>
+            <input type="datetime-local" id="taskDDL">
+        </div>
+
+        <div class="form-row">
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1">
+                    <label>来源类型</label>
+                    <select id="sourceType" onchange="updateColors()">
+                        <option value="boss">上级 (Boss)</option>
+                        <option value="external">外部 (Ext)</option>
+                        <option value="self">自我 (Self)</option>
+                    </select>
+                </div>
+                <div style="flex:1">
+                    <label>来源人名</label>
+                    <input type="text" id="sourceName" placeholder="如: 张总">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label>指派执行人</label>
+            <select id="targetSelect">
+                <option value="-1">★ 我自己 (COMMANDER)</option>
+                </select>
+        </div>
+
+        <button id="dispatchBtn" onclick="dispatchTask()">发布指令 / DISPATCH</button>
+    </div>
+
+    <div id="monitor" class="glass-panel">
+        <div id="monitor-header">
+            <span>ACTIVE MISSIONS / 正在进行的任务</span>
+            <div class="stat-box" id="taskCount">Loading...</div>
+        </div>
+        <div id="task-table-container">
+            <table id="taskTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>任务名称</th>
+                        <th>来源</th>
+                        <th>执行人</th>
+                        <th>创建时间</th>
+                        <th>截止时间 (DDL)</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // ================= 配置与初始化 =================
+        const API_BASE = 'http://123.57.94.67:8000/api';
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        // 颜色配置
+        const COLORS = {
+            boss: '#ff0055',     // 红：紧急/上级
+            external: '#ffaa00', // 黄：外部
+            self: '#00ff66',     // 绿：自我
+            hub: '#00f0ff',      // 蓝：中枢
+            sub: '#8855ff'       // 紫：下属
+        };
+
+        // 核心数据结构
+        const nodes = {
+            hub: { x: 0, y: 0, r: 35, color: COLORS.hub, label: 'ME' },
+            sources: {
+                boss: { x: 0, y: 0, color: COLORS.boss, label: 'BOSS' },
+                external: { x: 0, y: 0, color: COLORS.external, label: 'EXT' },
+                self: { x: 0, y: 0, color: COLORS.self, label: 'SELF' }
+            },
+            targets: [] // 下属节点
+        };
+
+        // 粒子系统：包含“飞行中”和“轨道运行中”的粒子
+        let particles = [];
+        let activeTasks = []; // 内存中存储任务数据
+
+        // ================= 动画系统 =================
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+
+            const cx = width / 2;
+            const cy = height / 2;
+
+            // 布局：中枢
+            nodes.hub.x = cx; nodes.hub.y = cy - 50; // 稍微往上提一点，留给底部列表空间
+
+            // 布局：来源 (左侧)
+            nodes.sources.boss.x = width * 0.1; nodes.sources.boss.y = cy - 150;
+            nodes.sources.external.x = width * 0.1; nodes.sources.external.y = cy - 50;
+            nodes.sources.self.x = width * 0.1; nodes.sources.self.y = cy + 50;
+
+            // 布局：下属 (右侧弧形)
+            if(nodes.targets.length > 0) {
+                const radius = Math.min(width, height) * 0.35;
+                nodes.targets.forEach((node, i) => {
+                    // -80度 到 +80度
+                    const angle = -Math.PI/2.2 + (Math.PI * 0.9 * (i / (nodes.targets.length - 1)));
+                    node.x = cx + Math.cos(angle) * radius;
+                    node.y = (cy - 50) + Math.sin(angle) * radius;
+                });
+            }
+        }
+        window.addEventListener('resize', resize);
+
+        class Particle {
+            constructor(task, mode) {
+                this.task = task;
+                this.mode = mode; // 'dispatch' (飞行) 或 'orbit' (环绕)
+                
+                // 颜色基于来源
+                this.color = COLORS[task.source_type] || '#fff';
+
+                // 确定目标节点
+                if (task.assignee_id === -1) {
+                    this.targetNode = nodes.hub;
+                } else {
+                    this.targetNode = nodes.targets.find(t => t.id === task.assignee_id) || nodes.hub;
+                }
+
+                // 初始化位置
+                if (mode === 'dispatch') {
+                    // 从来源飞出
+                    const src = nodes.sources[task.source_type] || nodes.sources.self;
+                    this.x = src.x;
+                    this.y = src.y;
+                    this.targetPos = {x: this.targetNode.x, y: this.targetNode.y};
+                    this.progress = 0;
+                    this.speed = 0.03; // 飞行速度
+                } else {
+                    // 直接在轨道上
+                    this.orbitAngle = Math.random() * Math.PI * 2;
+                    this.orbitRadius = 20 + Math.random() * 20; // 随机轨道高度
+                    this.orbitSpeed = 0.02 + Math.random() * 0.03;
+                    this.x = this.targetNode.x;
+                    this.y = this.targetNode.y;
+                }
+            }
+
+            update() {
+                if (this.mode === 'dispatch') {
+                    // 阶段1: 飞向Hub
+                    // 简化：直接飞向目标节点 (Source -> Hub -> Target 逻辑也可以，这里简化为直线飞入以更流畅)
+                    // 为了好看，我们还是先飞Hub再飞Target
+                    
+                    // 简单实现：飞向最终目标
+                    this.progress += this.speed;
+                    const dx = this.targetNode.x - this.x;
+                    const dy = this.targetNode.y - this.y;
+                    this.x += dx * 0.05; // 缓动跟随
+                    this.y += dy * 0.05;
+
+                    // 到达判断
+                    if (Math.abs(dx) < 5 && Math.abs(dy) < 5) {
+                        this.mode = 'orbit';
+                        this.orbitAngle = Math.random() * Math.PI * 2;
+                        this.orbitRadius = 20 + Math.random() * 20;
+                        this.orbitSpeed = 0.05;
+                    }
+
+                } else if (this.mode === 'orbit') {
+                    // 环绕目标节点旋转
+                    this.orbitAngle += this.orbitSpeed;
+                    this.x = this.targetNode.x + Math.cos(this.orbitAngle) * this.orbitRadius;
+                    this.y = this.targetNode.y + Math.sin(this.orbitAngle) * this.orbitRadius;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 3, 0, Math.PI*2);
+                ctx.fillStyle = this.color;
+                ctx.shadowColor = this.color;
+                ctx.shadowBlur = 10;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(5, 6, 10, 0.2)'; // 拖尾效果
+            ctx.fillRect(0, 0, width, height);
+
+            // 绘制连线 (Hub -> 下属)
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
+            ctx.lineWidth = 1;
+            nodes.targets.forEach(t => {
+                ctx.beginPath(); ctx.moveTo(nodes.hub.x, nodes.hub.y); ctx.lineTo(t.x, t.y); ctx.stroke();
+                drawNode(t, 6);
+            });
+            // 来源
+            Object.values(nodes.sources).forEach(s => drawNode(s, 10));
+            // 中枢
+            drawNode(nodes.hub, 25);
+
+            // 粒子
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        function drawNode(node, r) {
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, r, 0, Math.PI*2);
+            ctx.fillStyle = node.color;
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+            ctx.stroke();
+            
+            ctx.fillStyle = '#fff';
+            ctx.font = '10px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(node.label || node.name, node.x, node.y + r + 12);
+        }
+
+        // ================= 业务逻辑 =================
+
+        // 1. 初始化
+        async function initSystem() {
+            // 获取团队
+            const res = await fetch(`${API_BASE}/team`);
+            const team = await res.json();
+            
+            // 构建目标节点
+            nodes.targets = team.map(m => ({
+                id: m.id, name: m.name.replace('队员-', 'T'), color: COLORS.sub, x:0, y:0
+            }));
+            
+            // 填充下拉框
+            const sel = document.getElementById('targetSelect');
+            team.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.id;
+                opt.innerText = m.name;
+                sel.appendChild(opt);
+            });
+
+            resize();
+            refreshTasks();
+            animate();
+            
+            // 自动填充今天的日期到DDL默认值
+            const now = new Date();
+            now.setHours(now.getHours() + 24); // 默认明天
+            document.getElementById('taskDDL').value = now.toISOString().slice(0,16);
+        }
+
+        // 2. 刷新任务列表 & 重建粒子系统
+        async function refreshTasks() {
+            const res = await fetch(`${API_BASE}/tasks?status=processing`);
+            activeTasks = await res.json();
+            
+            // 更新DOM列表
+            renderTable(activeTasks);
+            
+            // 更新粒子系统 (Rebuild mode)
+            // 策略：清空现有粒子，根据现有任务重新生成轨道粒子
+            // 这样能确保视觉和数据一致
+            particles = []; 
+            activeTasks.forEach(task => {
+                particles.push(new Particle(task, 'orbit'));
+            });
+
+            document.getElementById('taskCount').innerText = `Total: ${activeTasks.length}`;
+        }
+
+        // 3. 发布任务
+        async function dispatchTask() {
+            const title = document.getElementById('taskTitle').value;
+            if(!title) return alert("请输入任务名称");
+
+            const payload = {
+                title: title,
+                source_type: document.getElementById('sourceType').value,
+                source_name: document.getElementById('sourceName').value || '未知',
+                assignee_id: parseInt(document.getElementById('targetSelect').value),
+                deadline: document.getElementById('taskDDL').value || null
+            };
+
+            const res = await fetch(`${API_BASE}/tasks`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+            const newTask = await res.json();
+
+            // 视觉效果：添加一个飞行粒子
+            particles.push(new Particle(newTask, 'dispatch'));
+            
+            // 稍后刷新列表以显示新数据
+            setTimeout(refreshTasks, 1000); 
+        }
+
+        // 4. 完成任务
+        async function completeTask(id) {
+            if(!confirm("确认任务已完结？")) return;
+            
+            await fetch(`${API_BASE}/tasks/${id}/complete`, {method: 'PUT'});
+            
+            // 视觉效果：找到对应的粒子并移除（简单处理：刷新即可）
+            refreshTasks();
+        }
+
+        // 辅助：渲染表格
+        function renderTable(tasks) {
+            const tbody = document.querySelector('#taskTable tbody');
+            tbody.innerHTML = '';
+            
+            tasks.forEach(t => {
+                const tr = document.createElement('tr');
+                
+                // 计算剩余时间
+                let timeStr = '-';
+                let timeClass = '';
+                if(t.deadline) {
+                    const ddl = new Date(t.deadline);
+                    const now = new Date();
+                    const diff = ddl - now;
+                    const hours = Math.floor(diff / (1000 * 60 * 60));
+                    
+                    if (diff < 0) { timeStr = "OVERDUE"; timeClass = "color:red; font-weight:bold;"; }
+                    else if (hours < 24) { timeStr = `${hours}h 剩余`; timeClass = "color:orange;"; }
+                    else { timeStr = `${Math.floor(hours/24)}天 剩余`; }
+                }
+
+                tr.innerHTML = `
+                    <td style="color:#556">${t.id}</td>
+                    <td style="color:#fff; font-weight:bold;">${t.title}</td>
+                    <td><span style="color:${COLORS[t.source_type]}">${t.source_name}</span></td>
+                    <td>${t.assignee_name}</td>
+                    <td style="color:#889">${new Date(t.created_at).toLocaleDateString()}</td>
+                    <td style="${timeClass}">${timeStr}</td>
+                    <td><button class="action-btn" onclick="completeTask(${t.id})">DONE</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function updateColors() {
+            // UI helper
+        }
+
+        // 启动
+        initSystem();
+
+    </script>
+</body>
+</html>
