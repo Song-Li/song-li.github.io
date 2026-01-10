@@ -3,404 +3,436 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>山海辩论赛 - 赛博抽题系统（手动版）</title>
+    <title>山海辩论 - 粒子检索版</title>
     <style>
-        /* --- 全局重置与字体 --- */
+        /* --- 基础设定 --- */
         :root {
-            --bg-color: #f0f2f5;
-            --main-white: #ffffff;
-            --main-black: #0a0a0a;
-            --cyber-cyan: #00f0ff;
-            --cyber-pink: #ff003c;
-            --grid-color: #dcdcdc;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none; /* 防止双击选中文本 */
+            --bg-color: #333; /* 网页背景深色，衬托投屏区 */
+            --card-bg: #ffffff;
+            --ink-black: #000000;
+            --accent-cyan: #00f0ff;
+            --accent-pink: #ff0055;
         }
 
         body {
-            font-family: 'Courier New', 'Microsoft YaHei', monospace;
+            margin: 0;
             background-color: var(--bg-color);
-            background-image: 
-                linear-gradient(var(--grid-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 30px 30px;
+            font-family: 'Helvetica Neue', 'Arial Black', sans-serif;
             height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             overflow: hidden;
-            color: var(--main-black);
         }
 
-        /* --- 主容器 --- */
-        .container {
-            width: 90%;
-            max-width: 800px;
-            background: var(--main-white);
-            border: 3px solid var(--main-black);
-            padding: 40px;
+        /* --- 1. 投屏主容器 (OBS Capture) --- */
+        .broadcast-card {
+            width: 900px;
+            height: 500px;
+            background: var(--card-bg);
+            border: 8px solid var(--ink-black);
             position: relative;
-            box-shadow: 10px 10px 0px var(--main-black);
-        }
-
-        /* 装饰性角落标记 */
-        .corner {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border: 3px solid var(--cyber-pink);
-            transition: all 0.3s ease;
-        }
-        .tl { top: -6px; left: -6px; border-right: none; border-bottom: none; }
-        .tr { top: -6px; right: -6px; border-left: none; border-bottom: none; }
-        .bl { bottom: -6px; left: -6px; border-right: none; border-top: none; }
-        .br { bottom: -6px; right: -6px; border-left: none; border-top: none; }
-
-        /* --- 标题区域 --- */
-        h1 {
-            text-transform: uppercase;
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 0px var(--cyber-cyan);
-            position: relative;
-        }
-        
-        h1::after {
-            content: "MANUAL_CONTROL_MODE";
-            display: block;
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 5px;
-            letter-spacing: 5px;
-        }
-
-        /* --- 控制区域 --- */
-        .controls {
             display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
+            flex-direction: column;
+            overflow: hidden; /* 必须隐藏溢出，防止粒子跑出去 */
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
         }
 
-        select {
-            padding: 15px 20px;
-            font-size: 1.2rem;
-            border: 2px solid var(--main-black);
-            background: var(--main-white);
-            font-family: inherit;
-            cursor: pointer;
-            outline: none;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            background-size: 20px;
-            min-width: 200px;
-        }
-
-        button {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            background: var(--main-black);
-            color: var(--cyber-cyan);
-            border: 2px solid var(--main-black);
-            cursor: pointer;
-            transition: all 0.1s;
-            min-width: 220px;
-        }
-
-        button:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 4px 4px 0 var(--main-black);
-        }
-
-        button:active {
-            transform: translate(0, 0);
-            box-shadow: none;
-        }
-
-        /* 运行状态下的按钮样式 */
-        button.running {
-            background: var(--cyber-pink);
-            color: var(--main-white);
-            border-color: var(--cyber-pink);
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 0, 60, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 0, 60, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 0, 60, 0); }
-        }
-
-        /* --- 结果显示区域 --- */
-        .result-box {
-            min-height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px dashed #aaa;
-            background: #fafafa;
-            position: relative;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .result-content {
-            font-size: 2rem;
-            font-weight: bold;
-            line-height: 1.4;
-            color: var(--main-black);
-            opacity: 0.5;
-        }
-
-        .category-tag {
+        /* --- 2. 粒子特效层 (Canvas) --- */
+        #particleCanvas {
             position: absolute;
             top: 0;
             left: 0;
-            background: var(--main-black);
-            color: var(--main-white);
-            padding: 5px 10px;
-            font-size: 0.8rem;
-            display: none;
-            z-index: 2;
-        }
-
-        /* --- 故障风动画类 --- */
-        .glitch-active {
-            opacity: 1;
-            animation: glitch-anim 0.3s infinite;
-            text-shadow: 2px 2px var(--cyber-pink), -2px -2px var(--cyber-cyan);
-        }
-
-        @keyframes glitch-anim {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
-        }
-
-        .scanline {
             width: 100%;
-            height: 100px;
-            z-index: 10;
-            background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0, 240, 255, 0.2) 50%, rgba(0,0,0,0) 100%);
-            opacity: 0.1;
-            position: absolute;
-            bottom: 100%;
-            animation: scanline 10s linear infinite;
+            height: 100%;
+            z-index: 10; /* 在文字之上 */
             pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease; /* 消失时的渐变 */
+        }
+        
+        /* 激活时显示画布 */
+        .searching #particleCanvas {
+            opacity: 1;
         }
 
-        @keyframes scanline {
-            0% { bottom: 100%; }
-            100% { bottom: -100%; }
+        /* --- 3. 内容层 (文字) --- */
+        .content-layer {
+            z-index: 5;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            opacity: 1;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            .container { padding: 20px; width: 95%; }
-            .result-content { font-size: 1.5rem; }
-            .controls { flex-direction: column; }
-            select, button { width: 100%; }
+        /* 搜索时，文字稍微模糊一点，增加神秘感 */
+        .searching .content-layer {
+            filter: blur(2px) grayscale(100%);
+            transform: scale(0.98);
         }
+
+        /* 顶部栏 */
+        .header {
+            height: 50px;
+            border-bottom: 4px solid var(--ink-black);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 16px;
+            background: var(--ink-black);
+            color: #fff;
+        }
+
+        /* 题目区 */
+        .topic-area {
+            flex: 5; /* 占比大 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .topic-text {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.2;
+            color: var(--ink-black);
+            opacity: 0; /* 默认隐藏，锁定后显示 */
+            transform: translateY(20px);
+            transition: all 0.4s ease-out;
+        }
+
+        /* 锁定状态下文字完全显示 */
+        .locked .topic-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 正反方区域 */
+        .sides-area {
+            flex: 3;
+            display: flex;
+            border-top: 4px solid var(--ink-black);
+        }
+
+        .side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: #fff;
+            transition: background 0.3s;
+        }
+        
+        .side.left { border-right: 2px solid var(--ink-black); }
+        .side.right { border-left: 2px solid var(--ink-black); }
+
+        .side-label {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            opacity: 0.5;
+        }
+
+        .side-val {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        /* --- 锁定后的高亮样式 (稳定态) --- */
+        .locked .side.left {
+            background: var(--ink-black);
+            color: var(--accent-cyan);
+        }
+        .locked .side.right {
+            background: var(--ink-black);
+            color: var(--accent-pink);
+        }
+        
+        /* 搜索时的 loading 文字占位 */
+        .searching-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: var(--ink-black);
+            z-index: 2;
+            display: none;
+        }
+        .searching .searching-text { display: block; }
+        .searching .topic-text { opacity: 0; } /* 搜索时隐藏真题 */
+
+
+        /* --- 4. 底部控制台 --- */
+        .controls {
+            margin-top: 30px;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            border: 1px solid #444;
+        }
+        
+        select { padding: 10px; font-size: 16px; min-width: 150px; }
+        
+        button {
+            padding: 10px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            background: var(--accent-cyan);
+            border: none;
+            color: #000;
+            transition: 0.2s;
+        }
+        button:hover { background: #fff; box-shadow: 0 0 15px var(--accent-cyan); }
+        
+        .hint { color: #888; font-size: 12px; }
+
     </style>
 </head>
 <body>
 
-    <div class="scanline"></div>
+    <div class="broadcast-card" id="card">
+        <canvas id="particleCanvas"></canvas>
+        
+        <div class="searching-text" id="glitchText">00:00:00</div>
 
-    <div class="container">
-        <div class="corner tl"></div>
-        <div class="corner tr"></div>
-        <div class="corner bl"></div>
-        <div class="corner br"></div>
+        <div class="content-layer">
+            <div class="header">
+                <span id="cateBadge">SYSTEM READY</span>
+                <span>DEBATE_OS v2.0</span>
+            </div>
+            
+            <div class="topic-area">
+                <div class="topic-text" id="topicDisplay">等待指令...</div>
+            </div>
 
-        <h1>山海辩论赛辩题抽取系统</h1>
-
-        <div class="controls">
-            <select id="channelSelect">
-                <option value="all">/// 全部题库混合 ///</option>
-                <option value="brain">A - 脑洞赛道</option>
-                <option value="emotion">B - 情感赛道</option>
-                <option value="life">C - 生活赛道</option>
-                <option value="philosophy">D - 哲思赛道</option>
-            </select>
-            <button id="actionBtn" onclick="toggleLottery()">开始抽取 [SPACE]</button>
-        </div>
-
-        <div class="result-box" id="resultBox">
-            <div class="category-tag" id="categoryTag">CATEGORY</div>
-            <div class="result-content" id="resultText">WAITING_FOR_INPUT...</div>
+            <div class="sides-area">
+                <div class="side left">
+                    <div class="side-label">正方 / AFF</div>
+                    <div class="side-val" id="affDisplay">-</div>
+                </div>
+                <div class="side right">
+                    <div class="side-label">反方 / NEG</div>
+                    <div class="side-val" id="negDisplay">-</div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <div class="controls">
+        <select id="channelSelect">
+            <option value="all">全赛道混合</option>
+            <option value="brain">脑洞赛道</option>
+            <option value="emotion">情感赛道</option>
+            <option value="life">生活赛道</option>
+            <option value="philosophy">哲思赛道</option>
+        </select>
+        <button id="toggleBtn" onclick="toggleState()">开始检索 (空格)</button>
+        <div class="hint">OBS中按住Alt裁剪白色区域</div>
+    </div>
+
     <script>
-        // ==========================================
-        // 1. 辩题库 (请在此处补充题目)
-        // ==========================================
-        const topicDatabase = {
+        // --- 1. 题库数据 ---
+        const db = {
             brain: [
-                "如果全人类都被迫变成了猫，你会努力做一只家猫还是野猫？",
-                "假如你的寿命可以交易，你会选择买入还是卖出？",
-                "如果这世界是一场楚门的世界，得知真相的你会选择醒来还是继续演戏？",
-                "拥有读心术但无法关闭，是一件好事还是坏事？",
-                "如果你能预知死亡时间，你会告诉你的家人吗？",
-                "外星人入侵，你可以出卖地球获得永生，你会做吗？"
+                { t: "全人类变成猫，做家猫还是野猫？", aff: "做家猫", neg: "做野猫" },
+                { t: "寿命可以交易，你会买入还是卖出？", aff: "买入", neg: "卖出" },
+                { t: "拥有读心术但无法关闭", aff: "是好事", neg: "是坏事" },
             ],
             emotion: [
-                "从未在一起和最终没有在一起，哪个更遗憾？",
-                "伴侣的手机里有秘密，我该不该看？",
-                "如果可以一键消除失恋的痛苦，你要不要按？",
-                "为了结婚而结婚，是不是一种不负责任？",
-                "最好的朋友爱上了我，我该接受还是拒绝？",
-                "异地恋最终败给了距离，是谁的错？"
+                { t: "从未在一起 vs 最终没有在一起", aff: "从未", neg: "最终" },
+                { t: "伴侣手机里有秘密，该不该看？", aff: "看", neg: "不看" },
+                { t: "消除失恋的痛苦，要不要按？", aff: "消除", neg: "保留" },
             ],
             life: [
-                "在大城市拥有一张床，还是在小城市拥有一套房？",
-                "面对职场霸凌，该忍气吞声还是正面硬刚？",
-                "当下社会，学历是敲门砖还是下台阶？",
-                "整容可以改变命运，你支持整容吗？",
-                "不仅要996，还要随叫随到，这种工作给多少钱你会干？",
-                "如果不仅不用工作还有钱拿，人会废掉吗？"
+                { t: "大城市一张床 vs 小城市一套房", aff: "大城市", neg: "小城市" },
+                { t: "面对职场霸凌，忍气吞声还是硬刚？", aff: "忍耐", neg: "硬刚" },
             ],
             philosophy: [
-                "迟到的正义，还是不是正义？",
-                "人性本善还是人性本恶？",
-                "如果AI产生了自我意识，我们应该给予它们人权吗？",
-                "为了多数人的利益牺牲少数人，是道德的吗？",
-                "生命的意义在于体验还是在于成就？",
-                "无知是幸福还是悲哀？"
+                { t: "迟到的正义，还是不是正义？", aff: "是", neg: "不是" },
+                { t: "人性本善还是人性本恶？", aff: "本善", neg: "本恶" },
             ]
         };
 
-        const channelSelect = document.getElementById('channelSelect');
-        const resultText = document.getElementById('resultText');
-        const resultBox = document.getElementById('resultBox');
-        const categoryTag = document.getElementById('categoryTag');
-        const actionBtn = document.getElementById('actionBtn');
-
-        let isRunning = false;
-        let timer = null;
+        // --- 2. 核心逻辑 ---
+        const card = document.getElementById('card');
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        const toggleBtn = document.getElementById('toggleBtn');
+        const glitchText = document.getElementById('glitchText');
         
-        // 赛道显示名称
-        const categoryNames = {
-            brain: "脑洞赛道",
-            emotion: "情感赛道",
-            life: "生活赛道",
-            philosophy: "哲思赛道"
-        };
+        // 显示元素
+        const topicDisplay = document.getElementById('topicDisplay');
+        const affDisplay = document.getElementById('affDisplay');
+        const negDisplay = document.getElementById('negDisplay');
+        const cateBadge = document.getElementById('cateBadge');
+        
+        let isRunning = false;
+        let particles = [];
+        let animId;
+        
+        // 初始化画布尺寸
+        function resizeCanvas() {
+            canvas.width = card.offsetWidth;
+            canvas.height = card.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        function getPool() {
-            const channel = channelSelect.value;
-            let pool = [];
-            if (channel === 'all') {
-                Object.keys(topicDatabase).forEach(key => {
-                    topicDatabase[key].forEach(topic => {
-                        pool.push({ text: topic, type: key });
-                    });
-                });
-            } else {
-                topicDatabase[channel].forEach(topic => {
-                    pool.push({ text: topic, type: channel });
-                });
+        // --- 3. 粒子系统 (炫酷部分) ---
+        class Particle {
+            constructor() {
+                this.reset();
             }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 20 + 5; // 大小不一的方块
+                this.speedY = Math.random() * 20 + 5; // 极速下落
+                this.color = Math.random() > 0.5 ? '#000000' : (Math.random() > 0.5 ? '#00f0ff' : '#ff0055'); // 黑/青/红
+                this.char = Math.random() > 0.8 ? String.fromCharCode(0x30A0 + Math.random() * 96) : ''; // 偶尔出现日文片假名增加赛博感
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y > canvas.height) {
+                    this.y = -this.size;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                // 绘制数码方块
+                ctx.fillRect(this.x, this.y, Math.random() * 5 + 2, this.size);
+                // 偶尔绘制文字
+                if (this.char) {
+                    ctx.font = '12px monospace';
+                    ctx.fillText(this.char, this.x, this.y);
+                }
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for(let i=0; i<150; i++) { // 粒子数量
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            // 每一帧都稍微保留一点上一帧的残影，形成拖尾效果
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            
+            // 随机生成一些横向扫描线干扰
+            if (Math.random() > 0.8) {
+                ctx.fillStyle = 'rgba(0,0,0,0.1)';
+                ctx.fillRect(0, Math.random()*canvas.height, canvas.width, 2);
+            }
+
+            animId = requestAnimationFrame(animateParticles);
+        }
+
+        // --- 4. 控制逻辑 ---
+        
+        function getPool() {
+            const mode = document.getElementById('channelSelect').value;
+            let pool = [];
+            const add = (arr, type) => arr.forEach(item => pool.push({...item, type: type}));
+            if(mode === 'all') { for(let k in db) add(db[k], k); } 
+            else { add(db[mode], mode); }
             return pool;
         }
 
-        // 核心开关逻辑
-        function toggleLottery() {
-            if (!isRunning) {
-                start();
-            } else {
-                stop();
-            }
+        function toggleState() {
+            if (isRunning) stop();
+            else start();
         }
+
+        // 随机乱码字符生成器
+        function randomStr() {
+            return Math.random().toString(36).substring(2, 8).toUpperCase();
+        }
+
+        let glitchInterval;
 
         function start() {
             const pool = getPool();
-            if (pool.length === 0) {
-                resultText.innerText = "ERROR: 题库为空";
-                return;
-            }
+            if(!pool.length) return;
 
-            // 1. 改变状态
             isRunning = true;
-            
-            // 2. 更新UI：按钮变红，文字变乱码，去除特效
-            actionBtn.innerText = "点击停止 [SPACE]";
-            actionBtn.classList.add('running');
-            
-            resultText.classList.remove('glitch-active');
-            resultBox.style.borderColor = "#000";
-            resultBox.style.background = "#fff";
-            categoryTag.style.display = "none";
-            resultText.style.opacity = 0.5;
+            toggleBtn.innerText = "锁定题目 (Space)";
+            toggleBtn.style.backgroundColor = "#ff0055"; // 按钮变红
+            toggleBtn.style.color = "#fff";
 
-            // 3. 开始循环动画
-            timer = setInterval(() => {
-                // 随机抽取一个暂时显示
-                const randomPick = pool[Math.floor(Math.random() * pool.length)];
-                resultText.innerText = randomPick.text;
-                // 偶尔插入乱码增强科技感
-                if(Math.random() > 0.7) {
-                   resultText.innerText = resultText.innerText.replace(/./g, (c) => Math.random() > 0.5 ? c : getRandomChar());
-                }
-            }, 50); // 50毫秒刷新一次，非常快
+            // 1. UI 状态：进入检索模式
+            card.classList.remove('locked');
+            card.classList.add('searching');
+            
+            // 2. 启动粒子
+            initParticles();
+            animateParticles();
+
+            // 3. 中间大字疯狂跳动
+            glitchInterval = setInterval(() => {
+                glitchText.innerText = "SEARCHING_" + Math.floor(Math.random()*99);
+            }, 50);
+
+            cateBadge.innerText = "DATA_MINING...";
         }
 
         function stop() {
-            // 1. 清除定时器
-            clearInterval(timer);
-            isRunning = false;
-
-            // 2. 获取最终结果
+            // 1. 数据准备
+            clearInterval(glitchInterval);
             const pool = getPool();
-            const finalPick = pool[Math.floor(Math.random() * pool.length)];
-
-            // 3. 更新UI：显示最终结果，触发故障特效
-            resultText.innerText = finalPick.text;
-            resultText.style.opacity = 1;
+            const final = pool[Math.floor(Math.random() * pool.length)];
             
-            // 恢复按钮状态
-            actionBtn.innerText = "开始抽取 [SPACE]";
-            actionBtn.classList.remove('running');
+            // 2. 停止粒子
+            cancelAnimationFrame(animId);
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // 瞬间清空画布
+            
+            // 3. UI 状态：进入锁定模式
+            card.classList.remove('searching');
+            card.classList.add('locked'); // 触发CSS过渡，画布消散
+            
+            isRunning = false;
+            toggleBtn.innerText = "开始检索 (Space)";
+            toggleBtn.style.backgroundColor = "#00f0ff"; // 按钮恢复
+            toggleBtn.style.color = "#000";
 
-            // 显示标签
-            categoryTag.innerText = categoryNames[finalPick.type] || "随机赛道";
-            categoryTag.style.display = "block";
-
-            // 触发锁定特效
-            resultText.classList.add('glitch-active');
-            resultBox.style.borderColor = "var(--cyber-pink)";
-            resultBox.style.background = "#fff0f5";
+            // 4. 填充内容
+            topicDisplay.innerText = final.t;
+            affDisplay.innerText = final.aff;
+            negDisplay.innerText = final.neg;
+            cateBadge.innerText = "LOCKED // " + final.type.toUpperCase();
         }
 
-        function getRandomChar() {
-            const chars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-            return chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-
-        // 绑定键盘快捷键 (空格或回车)
-        document.addEventListener('keydown', function(event) {
-            // 防止按空格键时触发页面滚动
-            if (event.code === 'Space') {
-                event.preventDefault(); 
-            }
-            if (event.code === 'Space' || event.key === 'Enter') {
-                toggleLottery();
+        // 键盘事件
+        document.addEventListener('keydown', (e) => {
+            if(e.code === 'Space') {
+                e.preventDefault();
+                toggleState();
             }
         });
 
