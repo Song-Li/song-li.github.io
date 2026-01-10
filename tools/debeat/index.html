@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>山海辩论赛 - 赛博抽题系统</title>
+    <title>山海辩论赛 - 赛博抽题系统（手动版）</title>
     <style>
         /* --- 全局重置与字体 --- */
         :root {
@@ -19,15 +19,16 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            user-select: none; /* 防止双击选中文本 */
         }
 
         body {
-            font-family: 'Courier New', 'Microsoft YaHei', monospace; /* 等宽字体增加科技感 */
+            font-family: 'Courier New', 'Microsoft YaHei', monospace;
             background-color: var(--bg-color);
             background-image: 
                 linear-gradient(var(--grid-color) 1px, transparent 1px),
                 linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 30px 30px; /* 技术网格背景 */
+            background-size: 30px 30px;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -44,7 +45,7 @@
             border: 3px solid var(--main-black);
             padding: 40px;
             position: relative;
-            box-shadow: 10px 10px 0px var(--main-black); /* 硬投影 */
+            box-shadow: 10px 10px 0px var(--main-black);
         }
 
         /* 装饰性角落标记 */
@@ -72,7 +73,7 @@
         }
         
         h1::after {
-            content: "SYSTEM_READY";
+            content: "MANUAL_CONTROL_MODE";
             display: block;
             font-size: 0.8rem;
             color: #666;
@@ -105,11 +106,6 @@
             min-width: 200px;
         }
 
-        select:focus {
-            border-color: var(--cyber-pink);
-            box-shadow: 0 0 10px rgba(255, 0, 60, 0.2);
-        }
-
         button {
             padding: 15px 40px;
             font-size: 1.2rem;
@@ -120,14 +116,10 @@
             border: 2px solid var(--main-black);
             cursor: pointer;
             transition: all 0.1s;
-            position: relative;
-            overflow: hidden;
+            min-width: 220px;
         }
 
         button:hover {
-            background: var(--cyber-pink);
-            color: var(--main-white);
-            border-color: var(--cyber-pink);
             transform: translate(-2px, -2px);
             box-shadow: 4px 4px 0 var(--main-black);
         }
@@ -135,6 +127,20 @@
         button:active {
             transform: translate(0, 0);
             box-shadow: none;
+        }
+
+        /* 运行状态下的按钮样式 */
+        button.running {
+            background: var(--cyber-pink);
+            color: var(--main-white);
+            border-color: var(--cyber-pink);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 60, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 0, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 60, 0); }
         }
 
         /* --- 结果显示区域 --- */
@@ -146,7 +152,7 @@
             border: 2px dashed #aaa;
             background: #fafafa;
             position: relative;
-            padding: 20px;
+            padding: 30px;
             text-align: center;
         }
 
@@ -155,7 +161,7 @@
             font-weight: bold;
             line-height: 1.4;
             color: var(--main-black);
-            opacity: 0.5; /* 初始透明度 */
+            opacity: 0.5;
         }
 
         .category-tag {
@@ -167,9 +173,10 @@
             padding: 5px 10px;
             font-size: 0.8rem;
             display: none;
+            z-index: 2;
         }
 
-        /* --- 故障风动画类 (Glitch) --- */
+        /* --- 故障风动画类 --- */
         .glitch-active {
             opacity: 1;
             animation: glitch-anim 0.3s infinite;
@@ -185,7 +192,6 @@
             100% { transform: translate(0) }
         }
 
-        /* 装饰性扫描线 */
         .scanline {
             width: 100%;
             height: 100px;
@@ -203,7 +209,6 @@
             100% { bottom: -100%; }
         }
 
-        /* 移动端适配 */
         @media (max-width: 600px) {
             h1 { font-size: 1.8rem; }
             .container { padding: 20px; width: 95%; }
@@ -223,17 +228,17 @@
         <div class="corner bl"></div>
         <div class="corner br"></div>
 
-        <h1>辩题随机生成系统</h1>
+        <h1>山海辩论赛辩题抽取系统</h1>
 
         <div class="controls">
             <select id="channelSelect">
                 <option value="all">/// 全部题库混合 ///</option>
-                <option value="brain">A - 脑洞赛道 (Brainstorm)</option>
-                <option value="emotion">B - 情感赛道 (Emotion)</option>
-                <option value="life">C - 生活赛道 (Life)</option>
-                <option value="philosophy">D - 哲思赛道 (Philosophy)</option>
+                <option value="brain">A - 脑洞赛道</option>
+                <option value="emotion">B - 情感赛道</option>
+                <option value="life">C - 生活赛道</option>
+                <option value="philosophy">D - 哲思赛道</option>
             </select>
-            <button onclick="startLottery()">确认抽取 [ENTER]</button>
+            <button id="actionBtn" onclick="toggleLottery()">开始抽取 [SPACE]</button>
         </div>
 
         <div class="result-box" id="resultBox">
@@ -244,7 +249,7 @@
 
     <script>
         // ==========================================
-        // 1. 在此处修改你的辩题库
+        // 1. 辩题库 (请在此处补充题目)
         // ==========================================
         const topicDatabase = {
             brain: [
@@ -285,25 +290,24 @@
         const resultText = document.getElementById('resultText');
         const resultBox = document.getElementById('resultBox');
         const categoryTag = document.getElementById('categoryTag');
-        const container = document.querySelector('.container');
+        const actionBtn = document.getElementById('actionBtn');
 
-        let isAnimating = false;
+        let isRunning = false;
+        let timer = null;
+        
+        // 赛道显示名称
+        const categoryNames = {
+            brain: "脑洞赛道",
+            emotion: "情感赛道",
+            life: "生活赛道",
+            philosophy: "哲思赛道"
+        };
 
-        // 生成随机字符用于解码特效
-        function getRandomChar() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
-            return chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-
-        // 获取当前选择的题库池
         function getPool() {
             const channel = channelSelect.value;
             let pool = [];
-            
             if (channel === 'all') {
-                // 合并所有数组
                 Object.keys(topicDatabase).forEach(key => {
-                    // 为了显示所属赛道，我们将题目包装成对象
                     topicDatabase[key].forEach(topic => {
                         pool.push({ text: topic, type: key });
                     });
@@ -316,86 +320,87 @@
             return pool;
         }
 
-        // 赛道名称映射（用于显示标签）
-        const categoryNames = {
-            brain: "脑洞赛道",
-            emotion: "情感赛道",
-            life: "生活赛道",
-            philosophy: "哲思赛道"
-        };
+        // 核心开关逻辑
+        function toggleLottery() {
+            if (!isRunning) {
+                start();
+            } else {
+                stop();
+            }
+        }
 
-        function startLottery() {
-            if (isAnimating) return;
-            isAnimating = true;
-
+        function start() {
             const pool = getPool();
             if (pool.length === 0) {
                 resultText.innerText = "ERROR: 题库为空";
-                isAnimating = false;
                 return;
             }
 
-            // UI 状态重置
+            // 1. 改变状态
+            isRunning = true;
+            
+            // 2. 更新UI：按钮变红，文字变乱码，去除特效
+            actionBtn.innerText = "点击停止 [SPACE]";
+            actionBtn.classList.add('running');
+            
             resultText.classList.remove('glitch-active');
             resultBox.style.borderColor = "#000";
             resultBox.style.background = "#fff";
             categoryTag.style.display = "none";
-            
-            // 动画参数
-            let duration = 1500; // 动画总时长(ms)
-            let interval = 50;   // 刷新频率
-            let steps = duration / interval;
-            let currentStep = 0;
+            resultText.style.opacity = 0.5;
 
-            const timer = setInterval(() => {
-                // 1. 随机闪烁过程：从池子里随机拿一个暂时显示
+            // 3. 开始循环动画
+            timer = setInterval(() => {
+                // 随机抽取一个暂时显示
                 const randomPick = pool[Math.floor(Math.random() * pool.length)];
-                
-                // 制造乱码效果：前一半时间乱码多，后一半时间文字多
-                if (currentStep < steps * 0.5) {
-                    resultText.innerText = Array(10).fill(0).map(() => getRandomChar()).join('');
-                    resultText.style.opacity = 0.5;
-                } else {
-                    resultText.innerText = randomPick.text;
-                    resultText.style.opacity = 0.8;
+                resultText.innerText = randomPick.text;
+                // 偶尔插入乱码增强科技感
+                if(Math.random() > 0.7) {
+                   resultText.innerText = resultText.innerText.replace(/./g, (c) => Math.random() > 0.5 ? c : getRandomChar());
                 }
-
-                currentStep++;
-
-                // 2. 动画结束，定格
-                if (currentStep >= steps) {
-                    clearInterval(timer);
-                    finalizeResult(pool);
-                }
-            }, interval);
+            }, 50); // 50毫秒刷新一次，非常快
         }
 
-        function finalizeResult(pool) {
-            // 最终随机抽取
+        function stop() {
+            // 1. 清除定时器
+            clearInterval(timer);
+            isRunning = false;
+
+            // 2. 获取最终结果
+            const pool = getPool();
             const finalPick = pool[Math.floor(Math.random() * pool.length)];
-            
-            // 更新文本
+
+            // 3. 更新UI：显示最终结果，触发故障特效
             resultText.innerText = finalPick.text;
             resultText.style.opacity = 1;
             
-            // 更新标签
+            // 恢复按钮状态
+            actionBtn.innerText = "开始抽取 [SPACE]";
+            actionBtn.classList.remove('running');
+
+            // 显示标签
             categoryTag.innerText = categoryNames[finalPick.type] || "随机赛道";
             categoryTag.style.display = "block";
 
-            // 触发故障特效
+            // 触发锁定特效
             resultText.classList.add('glitch-active');
-            
-            // 改变容器边框颜色以示“锁定”
             resultBox.style.borderColor = "var(--cyber-pink)";
-            resultBox.style.background = "#fff0f5"; // 淡淡的红背景
-
-            isAnimating = false;
+            resultBox.style.background = "#fff0f5";
         }
 
-        // 绑定回车键
+        function getRandomChar() {
+            const chars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            return chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+
+        // 绑定键盘快捷键 (空格或回车)
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                startLottery();
+            // 防止按空格键时触发页面滚动
+            if (event.code === 'Space') {
+                event.preventDefault(); 
+            }
+            if (event.code === 'Space' || event.key === 'Enter') {
+                toggleLottery();
             }
         });
 
